@@ -1,5 +1,5 @@
 ## Deskripsi Aplikasi
- Sistem Informasi Perpustakaan Berbasis Web merupakan sistem yang dapat digunakan untuk mengelola berbagai aktifitas di perpustakaan, mulai dari penyimpanan databuku hingga proses peminjaman.
+ Sistem Informasi Epusda merupakan sistem yang dapat digunakan untuk mengelola berbagai aktifitas di perpustakaan di Kabupaten Subang, mulai dari penyimpanan databuku hingga proses peminjaman dan klasifikasi Pengadaan buku menggunakan Algoritma Kmeans
 
 ##  Framework
 * Codeigniter 3.1.11
@@ -7,23 +7,24 @@
 
 ## Penggunaan Login Akses
 
+<b>Super Admin :</b>
+<br/>
+User : superadmin
+<br/>
+Pass : superadmin
+
 <b>Petugas Perpus : </b>
 <br/>
-User : anang
+User : petugas
 <br/>
-Pass : 123
+Pass : petugas
 
 <b>Anggota Perpus :</b>
 <br/>
-User : fauzan
+User : kemal
 <br/>
-Pass : 123
+Pass : kemal
 
-** Jika ada issues atau revisi atau menambahkan fitur silahkan pull request di repository ini
-
-## Contributors
-<a href="https://fauzan.codekop.com/"> Fauzan Falah</a>
-
-My Blog : <a href="https://www.codekop.com/"> Codekop.com</a>
-
-Gunakan Aplikasi dengan bijak, dan selamat belajar
+~Contributor~
+Thank you :
+- Teman - Teman semuanya...!!! 
