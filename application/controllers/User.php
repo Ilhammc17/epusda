@@ -48,17 +48,18 @@ class User extends CI_Controller {
 		$query  = "SELECT tbl_login.anggota_id,tbl_login.id_login,tbl_login.nim,
 					tbl_login.nama,tbl_login.user,tbl_login.jenkel,
 					tbl_login.telepon,tbl_login.level,tbl_login.alamat, 
-					tbl_jurusan.nama_jurusan 
+					tbl_status.nama_status, tbl_login.ktp
 					FROM tbl_login LEFT JOIN 
-					tbl_jurusan ON tbl_login.id_jurusan=tbl_jurusan.id_jurusan";
-		$search = array('anggota_id','nama','user','tbl_jurusan.nama_jurusan','nim','telepon','level','alamat');
-		if($this->input->get('sortir') == 'petugas'){
-			$where  = array('level' => 'Petugas');
-		}else if($this->input->get('sortir') == 'anggota'){
-			$where  = array('level' => 'Anggota');
-		}else{
-			$where  = null; 
-		}
+					tbl_status ON tbl_login.id_status=tbl_status.id_status";
+		$search = array('anggota_id','nama','user','tbl_status.nama_status','nim','telepon','level','alamat');
+		$where  = ['level' => 'Anggota'];
+		// if($this->input->get('sortir') == 'petugas'){
+		// 	$where  = array('level' => 'Petugas');
+		// }else if($this->input->get('sortir') == 'anggota'){
+		// 	$where  = array('level' => 'Anggota');
+		// }else{
+		// 	$where  = null; 
+		// }
 		// $where  = array('nama_kategori' => 'Tutorial');
 		// jika memakai IS NULL pada where sql
 		$isWhere = null;
@@ -72,10 +73,10 @@ class User extends CI_Controller {
 		$query  = "SELECT tbl_login.anggota_id,tbl_login.id_login,tbl_login.nim,
 					tbl_login.nama,tbl_login.user,tbl_login.jenkel,
 					tbl_login.telepon,tbl_login.level,tbl_login.alamat, 
-					tbl_jurusan.nama_jurusan 
+					tbl_status.nama_status 
 					FROM tbl_login LEFT JOIN 
-					tbl_jurusan ON tbl_login.id_jurusan=tbl_jurusan.id_jurusan";
-		$search = array('anggota_id','nama','user','tbl_jurusan.nama_jurusan','nim','telepon','level','alamat');
+					tbl_status ON tbl_login.id_status=tbl_status.id_status";
+		$search = array('anggota_id','nama','user','tbl_status.nama_status','nim','telepon','level','alamat');
 		$where  = array('level' => 'Anggota'); 
 		// $where  = array('nama_kategori' => 'Tutorial');
 		// jika memakai IS NULL pada where sql
@@ -89,7 +90,7 @@ class User extends CI_Controller {
     {	
         $this->data['uid'] = $this->session->userdata('ses_id');
         $this->data['user'] = $this->M_Admin->get_table('tbl_login');
-        $this->data['jur'] = $this->M_Admin->get_table('tbl_jurusan');
+        $this->data['jur'] = $this->M_Admin->get_table('tbl_status');
 		$this->data['sidebar'] = 'user';
         $this->data['title_web'] = 'Tambah User ';
         $this->load->view('header_view',$this->data);
@@ -107,7 +108,7 @@ class User extends CI_Controller {
 		$nama = htmlentities($this->input->post('nama',TRUE));
         $user = htmlentities($this->input->post('user',TRUE));
         $pass = htmlentities($this->input->post('pass',TRUE));
-        $level = htmlentities($this->input->post('level',TRUE));
+        $level = 'Anggota';
         $jenkel = htmlentities($this->input->post('jenkel',TRUE));
         $telepon = htmlentities($this->input->post('telepon',TRUE));
         $status = htmlentities($this->input->post('status',TRUE));
@@ -136,11 +137,18 @@ class User extends CI_Controller {
             $result1 = $this->upload->data();
             $result = array('gambar'=>$result1);
             $data1 = array('upload_data' => $this->upload->data());
+
+            $nmfile = "ktp_".time();
+            $config['file_name'] = $nmfile;
+
+            $this->upload->do_upload('ktp');
+            $ktp = $this->upload->data()['file_name'];
+
             $data = array(
 				'anggota_id' => $id,
                 'nim'=>$nim,
 				'nama'=>$nama,
-				'id_jurusan' => $jur,
+				'id_status' => $jur,
                 'user'=>$user,
                 'pass'=>$passhash,
                 'level'=>$level,
@@ -149,6 +157,7 @@ class User extends CI_Controller {
                 'email'=>$_POST['email'],
                 'telepon'=>$telepon,
                 'foto'=>$data1['upload_data']['file_name'],
+				'ktp'	=> $ktp,
                 'jenkel'=>$jenkel,
                 'alamat'=>$alamat,
                 'tgl_bergabung'=>date('Y-m-d')
@@ -186,7 +195,7 @@ class User extends CI_Controller {
 			}
 		}
         $this->data['title_web'] = 'Edit User ';
-        $this->data['jur'] = $this->M_Admin->get_table('tbl_jurusan');
+        $this->data['jur'] = $this->M_Admin->get_table('tbl_status');
 		$this->data['sidebar'] = 'user';
 
         $this->load->view('header_view',$this->data);
@@ -204,10 +213,10 @@ class User extends CI_Controller {
 			if($count > 0)
 			{			
 				$this->data['user'] = $this->db->query("SELECT 
-						tbl_jurusan.nama_jurusan, tbl_login.*
+						tbl_status.nama_status, tbl_login.*
 						FROM tbl_login LEFT JOIN 
-						tbl_jurusan 
-						ON tbl_login.id_jurusan=tbl_jurusan.id_jurusan 
+						tbl_status 
+						ON tbl_login.id_status=tbl_status.id_status 
 						WHERE tbl_login.id_login = ?",array($this->uri->segment('3')))->row();
 			}else{
 				echo '<script>alert("USER TIDAK DITEMUKAN");window.location="'.base_url('user').'"</script>';
@@ -218,10 +227,10 @@ class User extends CI_Controller {
 			if($count > 0)
 			{			
 				$this->data['user'] = $this->db->query("SELECT 
-						tbl_jurusan.nama_jurusan, tbl_login.*
+						tbl_status.nama_status, tbl_login.*
 						FROM tbl_login LEFT JOIN 
-						tbl_jurusan 
-						ON tbl_login.id_jurusan=tbl_jurusan.id_jurusan 
+						tbl_status 
+						ON tbl_login.id_status=tbl_status.id_status 
 						WHERE tbl_login.id_login = ?",array($this->session->userdata('ses_id')))->row();
 			}else{
 				echo '<script>alert("USER TIDAK DITEMUKAN");window.location="'.base_url('user').'"</script>';
@@ -254,7 +263,7 @@ class User extends CI_Controller {
         $nama = htmlentities($this->input->post('nama',TRUE));
         $user = htmlentities($this->input->post('user',TRUE));
         $pass = htmlentities($this->input->post('pass'));
-        $level = htmlentities($this->input->post('level',TRUE));
+        $level = 'Anggota';
         $jenkel = htmlentities($this->input->post('jenkel',TRUE));
         $telepon = htmlentities($this->input->post('telepon',TRUE));
         $status = htmlentities($this->input->post('status',TRUE));
@@ -262,22 +271,13 @@ class User extends CI_Controller {
         $id_login = htmlentities($this->input->post('id_login',TRUE));
 
 		$passhash = password_hash($pass, PASSWORD_DEFAULT);
-        // setting konfigurasi upload
-        $nmfile = "user_".time();
-        $config['upload_path'] = './assets/image/';
-        $config['allowed_types'] = 'gif|jpg|jpeg|png';
-        $config['file_name'] = $nmfile;
-        // load library upload
-        $this->load->library('upload', $config);
-		// upload gambar 1
 		
-        
-		if(!$this->upload->do_upload('gambar'))
+		if($_FILES['gambar']['name'] == '' && $_FILES['ktp']['name'] == '')
 		{
 			if($this->input->post('pass') !== ''){
 				$data = array(
 					'nim'=> $nim,
-					'id_jurusan' => $jur,
+					'id_status' => $jur,
 					'nama'=>$nama,
 					'user'=>$user,
 					'pass'=>$passhash,
@@ -306,7 +306,7 @@ class User extends CI_Controller {
 			}else{
 				$data = array(
 					'nim'=> $nim,
-					'id_jurusan' => $jur,
+					'id_status' => $jur,
 					'nama'=>$nama,
 					'user'=>$user,
 					'tempat_lahir'=>$_POST['lahir'],
@@ -334,26 +334,57 @@ class User extends CI_Controller {
 				} 
 			}
 		}else{
-			$result1 = $this->upload->data();
-			$result = array('gambar'=>$result1);
-			$data1 = array('upload_data' => $this->upload->data());
-			unlink('./assets/image/'.$this->input->post('foto'));
+			$data = array(
+				'nim'=> $nim,
+				'id_status' => $jur,
+				'nama'=>$nama,
+				'user'=>$user,
+				'tempat_lahir'=>$_POST['lahir'],
+				'tgl_lahir'=>$_POST['tgl_lahir'],
+				'level'=>$level,
+				'email'=>$_POST['email'],
+				'telepon'=>$telepon,
+				'jenkel'=>$jenkel,
+				'alamat'=>$alamat
+			);
+
+			$config['upload_path'] = './assets/image/';
+			$config['allowed_types'] = 'gif|jpg|jpeg|png';
+
+			if ($_FILES['gambar']['name'] != '') {
+				// setting konfigurasi upload
+				$nmfile = "user_".time();
+				$config['file_name'] = $nmfile;
+				// load library upload
+				$this->load->library('upload', $config);
+				// upload gambar 1
+				$this->upload->do_upload('gambar');
+	
+				$result1 = $this->upload->data();
+				$result = array('gambar'=>$result1);
+				$data1 = array('upload_data' => $this->upload->data());
+				unlink('./assets/image/'.$this->input->post('foto'));
+
+				$data['foto']	= $data1['upload_data']['file_name'];
+			}
+
+			if ($_FILES['ktp']['name'] != '') {
+				// setting konfigurasi upload
+				$nmktp = "ktp_".time();
+				$config['file_name'] = $nmktp;
+				// load library upload
+				$this->load->library('upload', $config);
+				// upload ktp 1
+				$this->upload->do_upload('ktp');
+	
+				$ktp = $this->upload->data()['file_name'];
+				unlink('./assets/image/'.$this->input->post('ktp'));
+
+				$data['ktp']	= $ktp;
+			}
+
 			if($this->input->post('pass') !== ''){
-				$data = array(
-					'nim'=> $nim,
-					'id_jurusan' => $jur,
-					'nama'=>$nama,
-					'user'=>$user,
-					'tempat_lahir'=>$_POST['lahir'],
-					'tgl_lahir'=>$_POST['tgl_lahir'],
-					'pass'=>$passhash,
-					'level'=>$level,
-					'email'=>$_POST['email'],
-					'telepon'=>$telepon,
-					'foto'=>$data1['upload_data']['file_name'],
-					'jenkel'=>$jenkel,
-					'alamat'=>$alamat
-				);
+				$data['pass']	= $passhash;
 				$this->M_Admin->update_table('tbl_login','id_login',$id_login,$data);
 			
 				if($this->session->userdata('level') == 'Petugas')
@@ -370,20 +401,6 @@ class User extends CI_Controller {
 				} 
 		
 			}else{
-				$data = array(
-					'nim'=> $nim,
-					'id_jurusan' => $jur,
-					'nama'=>$nama,
-					'user'=>$user,
-					'tempat_lahir'=>$_POST['lahir'],
-					'tgl_lahir'=>$_POST['tgl_lahir'],
-					'level'=>$level,
-					'email'=>$_POST['email'],
-					'telepon'=>$telepon,
-					'foto'=>$data1['upload_data']['file_name'],
-					'jenkel'=>$jenkel,
-					'alamat'=>$alamat
-				);
 				$this->M_Admin->update_table('tbl_login','id_login',$id_login,$data);
 			
 				if($this->session->userdata('level') == 'Petugas')

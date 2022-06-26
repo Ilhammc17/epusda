@@ -33,7 +33,7 @@
                                     <select class="form-control" name="jurusan">
                                         <option value="" selected disabled>- pilih Status -</option>
                                         <?php foreach($jur as $i){?>
-                                            <option value="<?= $i['id_jurusan'];?>"><?= $i['nama_jurusan'];?></option>
+                                            <option value="<?= $i['id_status'];?>"><?= $i['nama_status'];?></option>
                                         <?php }?>
                                     </select>
                                 </div>
@@ -56,13 +56,6 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Level</label>
-                                    <select name="level" class="form-control" required="required">
-                                    <option>Petugas</option>
-                                    <option>Anggota</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label>Jenis Kelamin</label>
                                     <br/>
                                     <input type="radio" name="jenkel" value="Laki-Laki" required="required"> Laki-Laki
@@ -80,6 +73,10 @@
                                 <div class="form-group">
                                     <label>Pas Foto</label>
                                     <input type="file" accept="image/*" name="gambar" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label>KTP</label>
+                                    <input type="file" accept="image/*" name="ktp" required="required">
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat</label>

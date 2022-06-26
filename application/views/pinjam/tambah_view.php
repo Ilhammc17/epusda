@@ -327,7 +327,7 @@ $(document).ready(function(){
                 { "data": "anggota_id" }, 
                 { "data": "nim" },  
                 { "data": "nama" },  
-                { "data": "nama_jurusan" },  
+                { "data": "nama_status" },  
                 { "data": "telepon" },
                 { "data": "level" },    
                 { "data": "id_login",

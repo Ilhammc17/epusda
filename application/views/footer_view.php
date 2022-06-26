@@ -97,5 +97,45 @@ $("#uintTextBox3").inputFilter(function(value) {
 <script src="<?php echo base_url();?>assets/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap time picker -->
 <script src="<?php echo base_url();?>assets/adminlte/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script>
+  const showSubkategori = () => {
+    const id_kategori = $('#kategori').val();
+
+    $.ajax({
+      url: `<?= base_url(); ?>data/subkategori/data_select/${id_kategori}`,
+      method: 'POST',
+      success: (response) => {
+        let option = '<option disabled selected value> -- Pilih Sub Kategori -- </option>';
+
+        response.forEach(opt => {
+          option += `<option value="${opt.id_subkategori}">${opt.nama_subkategori}</option>`;
+        });
+
+        $('#subkategori').html(option);
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
+  }
+
+  const addTambahan = (key) => {
+    $('#formTambahan').append(
+      `<div id="tambahan${key + 1}">
+        <div class="col-lg-9">
+          <input type="text" class="form-control" name="pengarang_tambahan[]" placeholder="Nama Pengarang Tambahan">
+        </div>
+        <div class="col-lg-3">
+          <div class="btn btn-success" onclick="addTambahan(${key + 1})"><i class="fa fa-plus"></i></div>
+          <div class="btn btn-danger" onclick="deleteTambahan(${key + 1})"><i class="fa fa-trash"></i></div>
+        </div>
+      </div>`
+    );
+  }
+
+  const deleteTambahan = (key) => {
+    $('#tambahan' + key).remove();
+  }
+</script>
 </body>
 </html>

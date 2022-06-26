@@ -16,24 +16,6 @@
 	        <div class="box box-primary">
                 <div class="box-header with-border">
                     <a href="user/tambah" class="btn btn-primary"><i class="fa fa-plus"> </i> Tambah User</a>
-                    <span class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" 
-                            type="button" data-toggle="dropdown"> Sortir 
-                            <?php if($this->input->get('sortir') == 'petugas'){?>
-                                ( Petugas )
-                            <?php }else if($this->input->get('sortir') == 'anggota'){?>
-                                ( Anggota )
-                            <?php }else{?>
-                                ( Semua Data )
-                            <?php }?>
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?= base_url('user');?>">Semua Data</a></li>
-                            <li><a href="<?= base_url('user?sortir=petugas');?>">Petugas</a></li>
-                            <li><a href="<?= base_url('user?sortir=anggota');?>">Anggota</a></li>
-                        </ul>
-                    </span>
                 </div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -76,7 +58,7 @@
             "order": [[ 0, 'desc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             "ajax":
             {
-                "url": "<?= base_url('user/data_user?sortir='.$this->input->get('sortir'));?>", // URL file untuk proses select datanya
+                "url": "<?= base_url('user/data_user');?>", // URL file untuk proses select datanya
                 "type": "POST"
             },
             "deferRender": true,
@@ -90,7 +72,7 @@
                 { "data": "anggota_id" }, 
                 { "data": "nim" },  
                 { "data": "nama" },  
-                { "data": "nama_jurusan" },  
+                { "data": "nama_status" },  
                 { "data": "user" },
                 { "data": "telepon" },
                 { "data": "level" },        
@@ -105,7 +87,10 @@
                                     class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                 <a href="${base_url}user/detail/${row.id_login}" target="_blank" 
                                     class="btn btn-primary btn-sm">
-                                    <i class="fa fa-print"></i> Cetak Kartu</a>`;
+                                    <i class="fa fa-print"></i> Cetak Kartu</a>
+                                <a href="${base_url}assets/image/${row.ktp}" target="_blank" 
+                                    class="btn btn-primary btn-sm">
+                                    <i class="fa fa-print"></i> Lihat KTP</a>`;
                     }
                 },
             ],

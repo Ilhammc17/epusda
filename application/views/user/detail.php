@@ -81,7 +81,7 @@
 							<tr>
 								<td>Status</td>
 								<td>:</td>
-								<td><?= $user->nama_jurusan;?></td>
+								<td><?= $user->nama_status;?></td>
 							</tr>
 							<tr>
 								<td>Nama</td>

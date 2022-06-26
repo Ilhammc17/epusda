@@ -21,7 +21,7 @@ class Login extends CI_Controller {
     {
 		$this->data['title_web'] = 'Daftar | Sistem Informasi Perpustakaan';
 		$this->data['sidebar'] = 'register';
-        $this->data['jur'] = $this->M_Admin->get_table('tbl_jurusan');
+        $this->data['jur'] = $this->M_Admin->get_table('tbl_status');
         $this->load->view('header_view',$this->data);
         $this->load->view('sidebar_view',$this->data);
         $this->load->view('register',$this->data);
@@ -60,7 +60,7 @@ class Login extends CI_Controller {
 				'anggota_id' => $id,
                 'nim'=>$nim,
 				'nama'=>$nama,
-				'id_jurusan' => $jur,
+				'id_status' => $jur,
                 'user'=>$user,
                 'pass'=>$passhash,
                 'level'=>$level,

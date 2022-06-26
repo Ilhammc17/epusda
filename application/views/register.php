@@ -33,7 +33,7 @@
                                     <select class="form-control" name="jurusan">
                                         <option value="" selected disabled>- pilih Status -</option>
                                         <?php foreach($jur as $i){?>
-                                            <option value="<?= $i['id_jurusan'];?>"><?= $i['nama_jurusan'];?></option>
+                                            <option value="<?= $i['id_status'];?>"><?= $i['nama_status'];?></option>
                                         <?php }?>
                                     </select>
                                 </div>

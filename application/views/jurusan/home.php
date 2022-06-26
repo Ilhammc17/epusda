@@ -29,11 +29,11 @@
 							<form method="post" action="<?= base_url('data/jurproses');?>">
 								<div class="form-group">
 								<label for="">Nama Status</label>
-								<input type="text" name="jurusan"  value="<?=$kat->nama_jurusan;?>" id="jurusan" class="form-control"  placeholder="Contoh : SD / SMP / SMA / Umum">
+								<input type="text" name="jurusan"  value="<?=$kat->nama_status;?>" id="jurusan" class="form-control"  placeholder="Contoh : SD / SMP / SMA / Umum">
 								
 								</div>
 								<br/>
-								<input type="hidden" name="edit" value="<?=$kat->id_jurusan;?>">
+								<input type="hidden" name="edit" value="<?=$kat->id_status;?>">
 								<button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit Status</button>
 							</form>
 							<?php }else{?>
@@ -97,18 +97,18 @@
             "deferRender": true,
             "aLengthMenu": [[10, 25, 50],[ 10, 25, 50]], // Combobox Limit
             "columns": [
-                {"data": 'id_jurusan',"sortable": false, 
+                {"data": 'id_status',"sortable": false, 
                     render: function (data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }  
                 },
-                { "data": "nama_jurusan" },  
-                { "data": "id_jurusan",
+                { "data": "nama_status" },  
+                { "data": "id_status",
                     "render": 
                     function( data, type, row, meta ) {
-                        return `<a href="${base_url}data/jurusan?id=${row.id_jurusan}" 
+                        return `<a href="${base_url}data/jurusan?id=${row.id_status}" 
 									class="btn btn-success"><i class="fa fa-edit"></i></a>
-								<a href="${base_url}data/jurproses?kat_id=${row.id_jurusan}" 
+								<a href="${base_url}data/jurproses?kat_id=${row.id_status}" 
 									onclick="return confirm('Anda yakin jurusan ini akan dihapus ?');" 
 									class="btn btn-danger"><i class="fa fa-trash"></i></a>`;
                     }

@@ -22,13 +22,35 @@
                             <div class="col-sm-6">
 								<div class="form-group">
 									<label>Kategori</label>
-									<select class="form-control select2" required="required"  name="kategori">
+									<select class="form-control select2" required="required"  name="kategori" onchange="showSubkategori()" id="kategori">
 										<option disabled selected value> -- Pilih Kategori -- </option>
 										<?php foreach($kats as $isi){?>
 											<option value="<?= $isi['id_kategori'];?>"><?= $isi['nama_kategori'];?></option>
 										<?php }?>
 									</select>
 								</div>
+								<div class="form-group">
+									<label>Sub Kategori</label>
+									<select class="form-control select2" required="required"  name="subkategori_id" id="subkategori"></select>
+								</div>
+                                <div class="form-group">
+                                    <label>Judul Buku</label>
+                                    <input type="text" class="form-control" name="title" placeholder="Judul Utama">
+                                    <!-- <input type="text" class="form-control" name="title" placeholder="Anak Judul">
+                                    <input type="text" class="form-control" name="title" placeholder="Penanggung Jawab"> -->
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Pengarang</label>
+                                    <input type="text" class="form-control" name="pengarang" placeholder="Nama Pengarang Utama">
+                                    <div class="row" id="formTambahan">
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" name="pengarang_tambahan[]" placeholder="Nama Pengarang Tambahan">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="btn btn-success" onclick="addTambahan(1)"><i class="fa fa-plus"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label>Rak / Lokasi</label>
                                     <select name="rak" class="form-control select2" required="required">
@@ -43,39 +65,18 @@
                                     <input type="text" class="form-control" name="isbn"  placeholder="Contoh ISBN : 978-602-8123-35-8">
                                 </div>
                                 <div class="form-group">
-                                    <label>Judul Buku</label>
-                                    <input type="text" class="form-control" name="title" placeholder="Contoh : Cara Cepat Belajar Pemrograman Web">
-                                </div>
-                                <div class="form-group">
-                                    <label>Nama Pengarang</label>
-                                    <input type="text" class="form-control" name="pengarang" placeholder="Nama Pengarang">
-                                </div>
-                                <div class="form-group">
                                     <label>Penerbit</label>
+                                    <input type="text" class="form-control" name="tempat_terbit" placeholder="Tempat Terbit">
                                     <input type="text" class="form-control" name="penerbit" placeholder="Nama Penerbit">
-                                </div>
-                                <div class="form-group">
-                                    <label>Tahun Buku</label>
                                     <input type="number" class="form-control" name="thn" placeholder="Tahun Buku : 2019">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Jumlah Buku</label>
+                                    <label>Deskripsi</label>
                                     <input type="number" class="form-control" name="jml" placeholder="Jumlah buku : 12">
-                                </div>
-								
-                                <div class="form-group">
-                                    <label>Sampul <small style="color:green">(gambar) * opsional</small></label>
-                                    <input type="file" accept="image/*" name="gambar">
-                                </div>
-                                <div class="form-group">
-                                    <label>Lampiran Buku <small style="color:green">(pdf) * opsional</small></label>
-                                    <input type="file" accept="application/pdf" name="lampiran">
-                                </div>
-                                <div class="form-group">
-                                    <label>Keterangan Lainnya</label>
-                                    <textarea class="form-control" name="ket" id="summernotehal" style="height:120px"></textarea>
+                                    <input type="file" accept="image/*" name="gambar" placeholder="Sampul">
+                                    <textarea class="form-control" name="ket" id="summernotehal" style="height:120px" placeholder="Keterangan Lainnya"></textarea>
                                 </div>
                             </div>
                         </div>

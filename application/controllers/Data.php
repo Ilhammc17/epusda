@@ -29,12 +29,16 @@ class Data extends CI_Controller {
 
 	public function data_buku()
 	{
-		$query  = "SELECT tbl_kategori.nama_kategori, tbl_rak.nama_rak, tbl_buku.* 
-				FROM tbl_buku LEFT JOIN 
-				tbl_kategori ON tbl_buku.id_kategori=tbl_kategori.id_kategori 
+		$query  = "SELECT 
+					tbl_kategori.nama_kategori,
+					tbl_rak.nama_rak,
+					tbl_buku.*,
+					(SELECT * FROM pengarang_tambahan WHERE tbl_buku.buku_id = pengarang_tambahan.buku_id)
+				FROM tbl_buku 
+				LEFT JOIN tbl_kategori ON tbl_buku.id_kategori=tbl_kategori.id_kategori 
 				LEFT JOIN tbl_rak ON tbl_buku.id_rak=tbl_rak.id_rak";
 		
-		$search = array('isbn','buku_id','title','nama_kategori','nama_rak','penerbit','thn_buku','jml','dipinjam','tgl_masuk');
+		$search = array('isbn','tbl_buku.buku_id','title','nama_kategori','nama_rak','penerbit','thn_buku','jml','dipinjam','tgl_masuk');
 		$where  = null; 
 		if($this->input->get('sortir')){
 			$sortir = htmlspecialchars($this->input->get('sortir'));
@@ -165,7 +169,8 @@ class Data extends CI_Controller {
 			$buku_id = $this->M_Admin->buat_kode('tbl_buku','BK','id_buku','ORDER BY id_buku DESC LIMIT 1');
 			$data = array(
 				'buku_id'=>$buku_id,
-				'id_kategori'=>htmlentities($post['kategori']), 
+				'id_kategori'=>htmlentities($post['kategori']),
+				'subkategori_id'	=> htmlentities($post['subkategori_id']),
 				'id_rak' => htmlentities($post['rak']), 
 				'isbn' => htmlentities($post['isbn']), 
 				'title'  => htmlentities($post['title']), 
@@ -221,8 +226,15 @@ class Data extends CI_Controller {
 					redirect(base_url('data')); 
 				}
 			}
-
+			
 			$this->db->insert('tbl_buku', $data);
+
+			foreach ($this->input->post('pengarang_tambahan') as $key) {
+				$this->db->insert('pengarang_tambahan', [
+					'buku_id'					=> $buku_id,
+					'nama_pengarang_tambahan'	=> $key,
+				]);
+			}
 
 			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
 			<p> Tambah Buku Sukses !</p>
@@ -425,15 +437,15 @@ class Data extends CI_Controller {
 		}
 		
         $this->data['uid'] = $this->session->userdata('ses_id');
-		$this->data['jurusan'] =  $this->db->query("SELECT * FROM tbl_jurusan ORDER BY id_jurusan DESC");
+		$this->data['jurusan'] =  $this->db->query("SELECT * FROM tbl_status ORDER BY id_status DESC");
 
 		$this->data['sidebar'] = 'jurusan';
 		if(!empty($this->input->get('id'))){
 			$id = $this->input->get('id');
-			$count = $this->M_Admin->CountTableId('tbl_jurusan','id_jurusan',$id);
+			$count = $this->M_Admin->CountTableId('tbl_status','id_status',$id);
 			if($count > 0)
 			{			
-				$this->data['kat'] = $this->db->query("SELECT *FROM tbl_jurusan WHERE id_jurusan='$id'")->row();
+				$this->data['kat'] = $this->db->query("SELECT *FROM tbl_status WHERE id_status='$id'")->row();
 			}else{
 				echo '<script>alert("status TIDAK DITEMUKAN");window.location="'.base_url('data/jurusan').'"</script>';
 			}
@@ -452,8 +464,8 @@ class Data extends CI_Controller {
 			$url=base_url('login');
 			redirect($url);
 		}
-		$tables = "tbl_jurusan";
-		$search = array('nama_jurusan');
+		$tables = "tbl_status";
+		$search = array('nama_status');
 		// jika memakai IS NULL pada where sql
 		$isWhere = null;
 		// $isWhere = 'artikel.deleted_at IS NULL';
@@ -473,10 +485,10 @@ class Data extends CI_Controller {
 		{
 			$post= $this->input->post();
 			$data = array(
-				'nama_jurusan'=>htmlentities($post['jurusan']),
+				'nama_status'=>htmlentities($post['jurusan']),
 			);
 
-			$this->db->insert('tbl_jurusan', $data);
+			$this->db->insert('tbl_status', $data);
 
 			
 			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
@@ -490,10 +502,10 @@ class Data extends CI_Controller {
 		{
 			$post= $this->input->post();
 			$data = array(
-				'nama_jurusan'=>htmlentities($post['jurusan']),
+				'nama_status'=>htmlentities($post['jurusan']),
 			);
-			$this->db->where('id_jurusan',htmlentities($post['edit']));
-			$this->db->update('tbl_jurusan', $data);
+			$this->db->where('id_status',htmlentities($post['edit']));
+			$this->db->update('tbl_status', $data);
 
 
 			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
@@ -505,8 +517,8 @@ class Data extends CI_Controller {
 		// hapus aksi form proses jurusan
 		if(!empty($this->input->get('kat_id')))
 		{
-			$this->db->where('id_jurusan',$this->input->get('kat_id'));
-			$this->db->delete('tbl_jurusan');
+			$this->db->where('id_status',$this->input->get('kat_id'));
+			$this->db->delete('tbl_status');
 
 			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
 			<p> Hapus status Sukses !</p>

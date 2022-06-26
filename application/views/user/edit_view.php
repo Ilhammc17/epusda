@@ -34,10 +34,10 @@
                                     <select class="form-control" name="jurusan">
                                         <option value="" selected disabled>- pilih Status -</option>
                                         <?php foreach($jur as $i){?>
-                                            <option value="<?= $i['id_jurusan'];?>" 
-                                                <?php if($user->id_jurusan == $i['id_jurusan']){ echo 'selected';}?>
+                                            <option value="<?= $i['id_status'];?>" 
+                                                <?php if($user->id_status == $i['id_status']){ echo 'selected';}?>
                                             >
-                                                <?= $i['nama_jurusan'];?></option>
+                                                <?= $i['nama_status'];?></option>
                                         <?php }?>
                                     </select>
                                 </div>
@@ -67,17 +67,6 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Level</label>
-                                    <select name="level" class="form-control" required="required">
-                                        <?php if($this->session->userdata('level') == 'Petugas'){?>
-                                            <option <?php if($user->level == 'Petugas'){ echo 'selected';}?>>Petugas</option>
-                                            <option <?php if($user->level == 'Anggota'){ echo 'selected';}?>>Anggota</option>
-                                        <?php }elseif($this->session->userdata('level') == 'Anggota'){?>
-                                            <option <?php if($user->level == 'Anggota'){ echo 'selected';}?>>Anggota</option>
-                                        <?php }?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label>Telepon</label>
                                     <input id="uintTextBox" class="form-control" value="<?= $user->telepon;?>" name="telepon" required="required" placeholder="Contoh : 089618173609">
                                 </div>
@@ -92,10 +81,17 @@
                                     <img src="<?= base_url('assets/image/'.$user->foto);?>" style="width:150px;" class="img-responsive" alt="#">
                                 </div>
                                 <div class="form-group">
+                                    <label>KTP</label>
+                                    <input type="file" accept="image/*" name="ktp">
+                                    <br/>
+                                    <img src="<?= base_url('assets/image/'.$user->ktp);?>" style="width:150px;" class="img-responsive" alt="#">
+                                </div>
+                                <div class="form-group">
                                     <label>Alamat</label>
                                     <textarea class="form-control" name="alamat"  required="required"><?= $user->alamat;?></textarea>
                                     <input type="hidden" class="form-control" value="<?= $user->id_login;?>" name="id_login">
                                     <input type="hidden" class="form-control" value="<?= $user->foto;?>" name="foto">
+                                    <input type="hidden" class="form-control" value="<?= $user->ktp;?>" name="ktp">
                                 </div>
                             </div>
                         </div>
