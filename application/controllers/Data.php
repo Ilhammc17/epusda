@@ -33,12 +33,13 @@ class Data extends CI_Controller {
 					tbl_kategori.nama_kategori,
 					tbl_rak.nama_rak,
 					tbl_buku.*,
-					(SELECT * FROM pengarang_tambahan WHERE tbl_buku.buku_id = pengarang_tambahan.buku_id)
-				FROM tbl_buku 
-				LEFT JOIN tbl_kategori ON tbl_buku.id_kategori=tbl_kategori.id_kategori 
+          tbl_subkategori.nama_subkategori
+				FROM tbl_buku
+				LEFT JOIN tbl_kategori ON tbl_buku.id_kategori=tbl_kategori.id_kategori
+				LEFT JOIN tbl_subkategori ON tbl_buku.subkategori_id = tbl_subkategori.id_subkategori
 				LEFT JOIN tbl_rak ON tbl_buku.id_rak=tbl_rak.id_rak";
 		
-		$search = array('isbn','tbl_buku.buku_id','title','nama_kategori','nama_rak','penerbit','thn_buku','jml','dipinjam','tgl_masuk');
+		$search = array('isbn','buku_id','title','nama_kategori','nama_rak','penerbit','thn_buku','jml','dipinjam','tgl_masuk');
 		$where  = null; 
 		if($this->input->get('sortir')){
 			$sortir = htmlspecialchars($this->input->get('sortir'));
@@ -51,11 +52,14 @@ class Data extends CI_Controller {
 				$isWhere = null;
 			}
 		}
+
+    $include  = 'pengarang_tambahan';
+
 		// $where  = array('nama_kategori' => 'Tutorial');
 		// jika memakai IS NULL pada where sql
 		// $isWhere = 'artikel.deleted_at IS NULL';
 		header('Content-Type: application/json');
-		echo $this->M_Datatables->get_tables_query($query,$search,$where,$isWhere);
+		echo $this->M_Datatables->get_tables_query($query, $search, $where, $isWhere, $include);
 	}
 
 	public function bukudetail()
