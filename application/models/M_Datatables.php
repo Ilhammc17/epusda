@@ -145,7 +145,7 @@
             return json_encode($callback); // Convert array $callback ke json
         }
 
-        function get_tables_query($query,$cari,$where,$iswhere)
+        function get_tables_query($query, $cari, $where, $iswhere, $include = null)
         {
             // Ambil data yang di ketik user pada textbox pencarian
             $search = htmlspecialchars($_POST['search']['value']);
@@ -253,6 +253,16 @@
                 }
                 $data = $sql_data->result_array();
             }
+
+            if ($include) {
+              for ($i=0; $i < count($data); $i++) {
+                $key                = $data[$i];
+                $data[$i][$include] = $this->db->get_where($include, ['buku_id' => $key['buku_id']])->result_array();
+              }
+            }
+
+            // print_r($data);
+            // die();
             
             $callback = array(    
                 'draw' => $_POST['draw'], // Ini dari datatablenya    

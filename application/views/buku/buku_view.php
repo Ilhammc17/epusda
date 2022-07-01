@@ -69,6 +69,9 @@
                                     <th>ISBN</th>
                                     <th>Title</th>
                                     <th>Kategori</th>
+                                    <th>Nama Subkategori</th>
+                                    <th>Pengarang</th>
+                                    <th>Pengarang Tambahan</th>
                                     <th>Rak</th>
                                     <th>Penerbit</th>
                                     <th>Tahun</th>
@@ -142,8 +145,24 @@
                     }
                 },
                 { "data": "isbn" },
-                { "data": "title" },  
+                { "data": "title" },
                 { "data": "nama_kategori" },
+                { "data": "nama_subkategori" },
+                { "data": "pengarang" },
+                {
+                  "data": "pengarang_tambahan",
+                  "render": (data) => {
+                    let result = `<ul>`;
+                    
+                    data.forEach(element => {
+                      result += `<li>${element.nama_pengarang_tambahan}</li>`;
+                    });
+
+                    result += '</ul>';
+
+                    return result;
+                  } 
+                },
                 { "data": "nama_rak" },   
                 { "data": "penerbit" },  
                 { "data": "thn_buku" },  
