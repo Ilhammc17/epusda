@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2022 at 02:25 PM
+-- Generation Time: Jul 06, 2022 at 01:55 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -41,7 +41,9 @@ INSERT INTO `pengarang_tambahan` (`id_pengarang_tambahan`, `buku_id`, `nama_peng
 (1, 'BK0018', 'a'),
 (2, 'BK0018', 'a'),
 (3, 'BK0018', 'a'),
-(4, 'BK0018', 'a');
+(4, 'BK0018', 'a'),
+(5, 'BK0021', 'Kemal'),
+(6, 'BK0022', 'a');
 
 -- --------------------------------------------------------
 
@@ -115,7 +117,9 @@ CREATE TABLE `tbl_buku` (
 --
 
 INSERT INTO `tbl_buku` (`id_buku`, `buku_id`, `id_kategori`, `subkategori_id`, `id_rak`, `sampul`, `isbn`, `lampiran`, `title`, `penerbit`, `pengarang`, `thn_buku`, `isi`, `jml`, `dipinjam`, `tgl_masuk`) VALUES
-(20, 'BK0018', 13, 1, 6, '4cf8511ab5359374a243141e1f060307.jpg', 'a', NULL, 'a', 'a', 'a', '2222', '<p>a</p>', 12, 0, '2022-06-26 17:48:56');
+(20, 'BK0018', 13, 1, 6, 'e648ee0951fd0f28a534432ffef5dad5.png', 'a', NULL, 'a', 'a', 'a', '2222', '<p>a</p>', 12, 2, '2022-06-27 18:33:09'),
+(21, 'BK0021', 13, 1, 5, '911c5dc7370d0b48259fa2ce1b717542.png', '987-6657-7757-8', NULL, 'Pergerakan zaman 1945', 'Garapan Store', 'Ilham', '2022', '', 15, 0, '2022-06-30 08:59:29'),
+(22, 'BK0022', 13, 2, 5, 'de218dafdcff582e3714a0789dbc0055.jpg', '987-6657-7757-83', NULL, 'Kisah  perjalanan panjang', 'Garapan Store', 'Ilham', '2022', '', 0, 1, '2022-07-05 11:25:30');
 
 -- --------------------------------------------------------
 
@@ -146,7 +150,9 @@ INSERT INTO `tbl_denda` (`id_denda`, `pinjam_id`, `denda`, `lama_waktu`, `tgl_de
 (13, 'PJ0025', '35972000', 8993, '2022-01-04'),
 (14, 'PJ0026', '228000', 57, '2022-01-04'),
 (16, 'PJ005', '0', 0, '2022-01-24'),
-(17, 'PJ003', '0', 0, '2022-01-24');
+(17, 'PJ003', '0', 0, '2022-01-24'),
+(22, 'PJ0018', '300000', 75, '2022-06-30'),
+(23, 'PJ0019', '0', 0, '2022-07-05');
 
 -- --------------------------------------------------------
 
@@ -225,7 +231,7 @@ CREATE TABLE `tbl_login` (
 
 INSERT INTO `tbl_login` (`id_login`, `anggota_id`, `user`, `pass`, `level`, `nama`, `nim`, `id_status`, `tempat_lahir`, `tgl_lahir`, `jenkel`, `alamat`, `telepon`, `email`, `tgl_bergabung`, `foto`, `ktp`) VALUES
 (1, 'AG001', 'petugas', '$2y$10$cBPIp9auqUmtsGc8ARRko.V.3SspEmoY6K4SReqHNmJeIoHZvMGLW', 'Petugas', 'Ilham', '10106018', 2, 'Subang', '1999-04-05', 'Laki-Laki', 'Subang', '081234567890', 'Petugas@gmail.com', '2019-11-20', 'user_1632210994.png', ''),
-(2, 'AG002', 'kemal', '$2y$10$AIT3I7ahl5cRLpaqKZyUh.nbs4OjbrS06/4iBZSCQYZ9qUZMdzzXm', 'Anggota', 'Kemal kasep', '10106019', 2, 'Subang', '1998-11-18', 'Laki-Laki', 'Subang', '081234567890', 'kemal@gmail.com', '2019-11-21', 'user_1653548245.png', 'ktp_1656231565.jpg'),
+(2, 'AG002', 'kemal', '$2y$10$AIT3I7ahl5cRLpaqKZyUh.nbs4OjbrS06/4iBZSCQYZ9qUZMdzzXm', 'Anggota', 'Indri Destiani', '10106019', 2, 'Subang', '1998-11-18', 'Laki-Laki', 'Subang', '081234567890', 'kemal@gmail.com', '2019-11-21', 'user_1656404166.jpeg', 'ktp_1656231565.jpg'),
 (4, '', 'superadmin', '$2y$10$rbsYs2aOAyKN.6LB3llz/uoY3WIySlaCztE.iYyypXTKRabJODpFS', 'Superadmin', 'superadmin', '', 2, 'Subang', '1999-04-05', 'Laki-Laki', 'Subang', '081234567890', 'Petugas@gmail.com', '2019-11-20', 'user_1632210994.png', ''),
 (5, '', 'admin', '$2y$10$Ecy14db7EZZKh8EYpEdf2OkJQ.UsvwgJY5gu8rgmOZ4y5ebzjbQ/a', 'Petugas', 'rafi', NULL, 0, '', '', '', '', '085723853284', 'rafi@gmail.com', '', '', ''),
 (7, '', 'bagus', '$2y$10$7m/2epoCTh1gWVLVs/l6Mu0/6qHe.TuHcv3KUatAvojeMHEH4Ck7O', 'Petugas', 'bagus', NULL, 0, '', '', '', '', '085723853284', 'bagassetia271@gmail.com', '', '', ''),
@@ -251,9 +257,13 @@ CREATE TABLE `tbl_pengunjung` (
 
 INSERT INTO `tbl_pengunjung` (`id`, `anggota_id`, `nama`, `created_at`, `tgl_masuk`) VALUES
 (1, 'AG001', 'Anang', '2021-09-21 14:50:46', '2021-09-21'),
-(2, 'ag002', 'Fauzan Falah', '2021-09-21 14:52:12', '2021-09-21'),
 (3, 'ag001', 'Anang', '2021-09-21 14:52:48', '2021-09-21'),
-(4, '10107001', 'Septian', '2022-05-26 13:53:09', '2022-05-26');
+(4, '10107001', 'Septian', '2022-05-26 13:53:09', '2022-05-26'),
+(5, '9389131', 'Ilham', '2022-06-28 09:58:41', '2022-06-28'),
+(6, '6436336', 'kemall', '2022-06-28 09:58:50', '2022-06-28'),
+(7, '874875', 'ilhakkk', '2022-06-30 09:08:22', '2022-06-30'),
+(8, '587385', 'ilhammm', '2022-07-05 11:08:09', '2022-07-05'),
+(9, '8979798', 'ilhamm', '2022-07-05 14:31:18', '2022-07-05');
 
 -- --------------------------------------------------------
 
@@ -284,7 +294,10 @@ INSERT INTO `tbl_pinjam` (`id_pinjam`, `pinjam_id`, `anggota_id`, `buku_id`, `st
 (3, 'PJ003', 'AG002', 'BK009', 'Di Kembalikan', 3, '2022-01-24', 2, '2022-01-26', '2022-01-24', '01-2022', '01-2022'),
 (4, 'PJ003', 'AG002', 'BK008', 'Di Kembalikan', 2, '2022-01-24', 2, '2022-01-26', '2022-01-24', '01-2022', '01-2022'),
 (5, 'PJ005', 'AG002', 'BK009', 'Di Kembalikan', 3, '2022-01-24', 2, '2022-01-26', '2022-01-24', '01-2022', '01-2022'),
-(18, 'PJ0018', 'AG002', 'BK009', 'Dipinjam', 1, '2022-04-14', 2, '2022-04-16', '0', '04-2022', NULL);
+(18, 'PJ0018', 'AG002', 'BK009', 'Di Kembalikan', 1, '2022-04-14', 2, '2022-04-16', '2022-06-30', '04-2022', '06-2022'),
+(19, 'PJ0019', 'AG008', 'BK0021', 'Di Kembalikan', 1, '2022-07-05', 8, '2022-07-13', '2022-07-05', '07-2022', '07-2022'),
+(20, 'PJ0020', 'AG002', 'BK0018', 'Dipinjam', 2, '2022-07-05', 7, '2022-07-12', '0', '07-2022', NULL),
+(21, 'PJ0021', 'AG008', 'BK0022', 'Dipinjam', 1, '2022-07-05', 7, '2022-07-12', '0', '07-2022', NULL);
 
 -- --------------------------------------------------------
 
@@ -345,7 +358,7 @@ CREATE TABLE `tbl_subkategori` (
 
 INSERT INTO `tbl_subkategori` (`id_subkategori`, `kategori_id`, `nama_subkategori`) VALUES
 (1, 13, 'Publikasi umum'),
-(2, 13, 'Bibiliografi');
+(2, 13, 'Bibiliografii');
 
 --
 -- Indexes for dumped tables
@@ -438,7 +451,7 @@ ALTER TABLE `tbl_subkategori`
 -- AUTO_INCREMENT for table `pengarang_tambahan`
 --
 ALTER TABLE `pengarang_tambahan`
-  MODIFY `id_pengarang_tambahan` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pengarang_tambahan` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_atur`
@@ -456,25 +469,25 @@ ALTER TABLE `tbl_biaya_denda`
 -- AUTO_INCREMENT for table `tbl_buku`
 --
 ALTER TABLE `tbl_buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_denda`
 --
 ALTER TABLE `tbl_denda`
-  MODIFY `id_denda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_denda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_keranjang`
 --
 ALTER TABLE `tbl_keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
@@ -486,25 +499,25 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT for table `tbl_pengunjung`
 --
 ALTER TABLE `tbl_pengunjung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_pinjam`
 --
 ALTER TABLE `tbl_pinjam`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_rak`
 --
 ALTER TABLE `tbl_rak`
-  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_status`
 --
 ALTER TABLE `tbl_status`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_subkategori`
