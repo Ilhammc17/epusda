@@ -57,7 +57,8 @@
 				<?php if($sidebar == 'rak'){ echo 'active';}?>
 				<?php if($sidebar == 'buku_data'){ echo 'active';}?>
 				<?php if($sidebar == 'buku'){ echo 'active';}?>
-				<?php if($sidebar == 'jurusan'){ echo 'active';}?>">
+				<?php if($sidebar == 'jurusan'){ echo 'active';}?>
+				<?php if($sidebar == 'sumber'){ echo 'active';}?>">
 				<a href="#">
 					<i class="fa fa-pencil-square"></i>
 					<span>Data </span>
@@ -89,6 +90,11 @@
 						<a href="<?php echo base_url("data/rak");?>" class="cursor">
 							<span class="fa fa-list"></span> Rak
 							
+						</a>
+					</li>
+					<li class=" <?php if($sidebar == 'sumber'){ echo 'active';}?>">
+						<a href="<?php echo base_url("data/sumber");?>" class="cursor">
+							<span class="fa fa-list"></span> Sumber
 						</a>
 					</li>
           		</ul>

@@ -13,6 +13,13 @@ $route['data/subkategori/(:any)']['get']                = 'KategoriController/in
 $route['data/subkategori/update/(:any)']['post']        = 'KategoriController/store/$1';
 $route['data/subkategori/delete/(:any)']['get']         = 'KategoriController/store/$1';
 
+$route['data/sumber/data']['post']          = 'SumberController/data';
+// $route['data/sumber/data_select/(:any)']['post']   = 'SumberController/data_select/$1';
+$route['data/sumber']['post']               = 'SumberController/store';
+$route['data/sumber']['get']                = 'SumberController/index';
+$route['data/sumber/update']['post']        = 'SumberController/store';
+$route['data/sumber/delete']['get']         = 'SumberController/store';
+
 $route['kelola_petugas']                      = 'PetugasController';
 $route['kelola_petugas/data_petugas']         = 'PetugasController/data';
 $route['kelola_petugas/tambah']['get']        = 'PetugasController/create';

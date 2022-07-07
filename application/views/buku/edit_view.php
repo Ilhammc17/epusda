@@ -30,6 +30,24 @@
 										<?php }?>
 									</select>
 								</div>
+								<div class="form-group">
+									<label>Sub Kategori</label>
+									<select class="form-control select2" required="required"  name="subkategori_id" id="subkategori">
+										<option disabled selected value> -- Pilih Sumber -- </option>
+										<?php foreach($subkategori as $isi){?>
+											<option value="<?= $isi['id_subkategori'];?>" <?php if($isi['id_subkategori'] == $buku->subkategori_id){ echo 'selected';}?>><?= $isi['nama_subkategori'];?></option>
+										<?php }?>
+                  </select>
+								</div>
+								<div class="form-group">
+									<label>Sumber</label>
+									<select class="form-control select2" required="required"  name="sumber_id">
+										<option disabled selected value> -- Pilih Sumber -- </option>
+										<?php foreach($sumber as $isi){?>
+											<option value="<?= $isi['id_sumber'];?>" <?php if($isi['id_sumber'] == $buku->sumber_id){ echo 'selected';}?>><?= $isi['nama_sumber'];?></option>
+										<?php }?>
+                  </select>
+								</div>
                                 <div class="form-group">
                                     <label>Rak / Lokasi</label>
                                     <select name="rak" class="form-control select2" required="required">

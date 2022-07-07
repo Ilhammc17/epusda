@@ -25,13 +25,22 @@
 									<select class="form-control select2" required="required"  name="kategori" onchange="showSubkategori()" id="kategori">
 										<option disabled selected value> -- Pilih Kategori -- </option>
 										<?php foreach($kats as $isi){?>
-											<option value="<?= $isi['id_kategori'];?>"><?= $isi['nama_kategori'];?></option>
+											<option value="<?= $isi['id_kategori'];?>"><?= $isi['no_kelas'] . ' - ' . $isi['nama_kategori'];?></option>
 										<?php }?>
 									</select>
 								</div>
 								<div class="form-group">
 									<label>Sub Kategori</label>
 									<select class="form-control select2" required="required"  name="subkategori_id" id="subkategori"></select>
+								</div>
+								<div class="form-group">
+									<label>Sumber</label>
+									<select class="form-control select2" required="required"  name="sumber_id">
+										<option disabled selected value> -- Pilih Sumber -- </option>
+										<?php foreach($sumber as $isi){?>
+											<option value="<?= $isi['id_sumber'];?>"><?= $isi['nama_sumber'];?></option>
+										<?php }?>
+                  </select>
 								</div>
                                 <div class="form-group">
                                     <label>Judul Buku</label>

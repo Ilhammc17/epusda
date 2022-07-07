@@ -18,35 +18,35 @@
 					<div class="box box-primary">
 						<div class="box-header with-border">
 							<?php if(!empty($this->input->get('id'))){?>
-							<h4> Edit Sub Kategori</h4>
+							<h4> Edit Sumber</h4>
 							<?php }else{?>
-							<h4> Tambah Sub Kategori</h4>
+							<h4> Tambah Sumber</h4>
 							<?php }?>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
 							<?php if(!empty($this->input->get('id'))){?>
-							<form method="post" action="<?= base_url('data/subkategori/update/' . $id_kategori);?>">
+							<form method="post" action="<?= base_url('data/sumber/update');?>">
 								<div class="form-group">
-								<label for="">Nama Sub Kategori</label>
-								<input type="text" name="nama_subkategori"  value="<?=$kat->nama_subkategori;?>" id="kategori" class="form-control"  placeholder="Contoh : Pemrograman Web" >
+								<label for="">Nama Sumber</label>
+								<input type="text" name="nama_sumber"  value="<?=$sumber->nama_sumber;?>" class="form-control"  placeholder="Contoh : Pemrograman Web" >
 								
 								</div>
 								<br/>
-								<input type="hidden" name="edit" value="<?=$kat->id_subkategori;?>">
-								<button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit Sub Kategori</button>
+								<input type="hidden" name="edit" value="<?=$sumber->id_sumber;?>">
+								<button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit Sumber</button>
 							</form>
 							<?php }else{?>
 
-							<form method="post" action="<?= base_url('data/subkategori/' . $id_kategori);?>">
+							<form method="post" action="<?= base_url('data/sumber');?>">
 								<div class="form-group">
-								<label for="">Nama Sub Kategori</label>
-								<input type="text" name="nama_subkategori" id="kategori" class="form-control" placeholder="Contoh : Pemrograman Web" >
+								<label for="">Nama Sumber</label>
+								<input type="text" name="nama_sumber" class="form-control" placeholder="Contoh : Pemrograman Web" >
 								
 								</div>
 								<br/>
 								<input type="hidden" name="tambah" value="tambah">
-								<button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Sub Kategori</button>
+								<button type="submit" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Sumber</button>
 							</form>
 							<?php }?>
 						</div>
@@ -58,13 +58,12 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-              <a href="<?= base_url('data/kategori'); ?>" class="btn btn-success" style="margin-bottom: 20px;">List Kategori</a>
 						<div class="table-responsive">
 							<table id="example" class="table table-bordered table-striped table" width="100%">
 								<thead>
 									<tr>
 										<th>No</th>
-										<th>Sub Kategori</th>
+										<th>Sumber</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
@@ -93,25 +92,25 @@
             "order": [[ 0, 'desc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             "ajax":
             {
-                "url": "<?= base_url('data/subkategori/data/' . $id_kategori);?>", // URL file untuk proses select datanya
+                "url": "<?= base_url('data/sumber/data');?>", // URL file untuk proses select datanya
                 "type": "POST"
             },
             "deferRender": true,
             "aLengthMenu": [[10, 25, 50],[ 10, 25, 50]], // Combobox Limit
             "columns": [
-                {"data": 'id_subkategori',"sortable": false, 
+                {"data": 'id_sumber',"sortable": false, 
                     render: function (data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }  
                 },
-                { "data": "nama_subkategori" },  
-                { "data": "id_subkategori",
+                { "data": "nama_sumber" },  
+                { "data": "id_sumber",
                     "render": 
                     function( data, type, row, meta ) {
-                        return `<a href="${base_url}data/subkategori/${row.kategori_id}?id=${row.id_subkategori}" 
+                        return `<a href="${base_url}data/sumber?id=${row.id_sumber}" 
 									class="btn btn-success"><i class="fa fa-edit"></i></a>
-								<a href="${base_url}data/subkategori/delete/${row.kategori_id}?subkat_id=${row.id_subkategori}" 
-									onclick="return confirm('Anda yakin Sub Kategori ini akan dihapus ?');" 
+								<a href="${base_url}data/sumber/delete?sumber_id=${row.id_sumber}" 
+									onclick="return confirm('Anda yakin Sumber ini akan dihapus ?');" 
 									class="btn btn-danger"><i class="fa fa-trash"></i></a>`;
                     }
                 },

@@ -66,6 +66,7 @@
                                     <th>No</th>
                                     <th>Sampul</th>
                                     <th style="width:10%;">Buku ID</th>
+                                    <th>No. Kelas</th>
                                     <th>ISBN</th>
                                     <th>Title</th>
                                     <th>Kategori</th>
@@ -74,6 +75,7 @@
                                     <th>Pengarang Tambahan</th>
                                     <th>Rak</th>
                                     <th>Penerbit</th>
+                                    <th>Sumber</th>
                                     <th>Tahun</th>
                                     <th>Stok</th>
                                     <th>Pinjam</th>
@@ -144,6 +146,7 @@
                         return `${row.buku_id}`;
                     }
                 },
+                { "data": "no_kelas" },
                 { "data": "isbn" },
                 { "data": "title" },
                 { "data": "nama_kategori" },
@@ -164,7 +167,8 @@
                   } 
                 },
                 { "data": "nama_rak" },   
-                { "data": "penerbit" },  
+                { "data": "penerbit" },   
+                { "data": "nama_sumber" },  
                 { "data": "thn_buku" },  
                 { "data": "jml" },  
                 { "data": "dipinjam" },  

@@ -52,6 +52,9 @@ class Login extends CI_Controller {
 		$dd = $this->db->query("SELECT * FROM tbl_login WHERE user = '$user' OR email = '$email'");
 		if($dd->num_rows() > 0)
 		{
+      var_dump($dd);
+      die();
+      
             $this->session->set_flashdata('failed','Gagal Update User : '.$nama.' !, Username / Email Anda Sudah Terpakai');
 			redirect(base_url('login/daftar')); 
 		}else{

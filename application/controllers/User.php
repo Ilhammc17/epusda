@@ -121,7 +121,7 @@ class User extends CI_Controller {
 		if($dd->num_rows() > 0)
 		{
 			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
-					<p> Gagal Update User : '.$nama.' !, Username / Email Anda Sudah Terpakai</p>
+					<p> Gagal Update User : '.$nama.' !, Username Anda Sudah Terpakai</p>
 				</div></div>');
 			redirect(base_url('user/tambah')); 
 		}else{
@@ -133,7 +133,15 @@ class User extends CI_Controller {
             // load library upload
             $this->load->library('upload', $config);
             // upload gambar 1
-            $this->upload->do_upload('gambar');
+            // $this->upload->do_upload('gambar');
+
+            if (!$this->upload->do_upload('gambar')) {
+              $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+                  <p>Format pas foto yang dimasukan salah</p>
+                </div></div>');
+              redirect($_SERVER['HTTP_REFERER']);
+            }
+
             $result1 = $this->upload->data();
             $result = array('gambar'=>$result1);
             $data1 = array('upload_data' => $this->upload->data());
@@ -141,7 +149,16 @@ class User extends CI_Controller {
             $nmfile = "ktp_".time();
             $config['file_name'] = $nmfile;
 
-            $this->upload->do_upload('ktp');
+            // $this->upload->do_upload('ktp');
+
+            
+            if (!$this->upload->do_upload('ktp')) {
+              $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+                  <p>Format ktp yang dimasukan salah</p>
+                </div></div>');
+              redirect($_SERVER['HTTP_REFERER']);
+            }
+
             $ktp = $this->upload->data()['file_name'];
 
             $data = array(

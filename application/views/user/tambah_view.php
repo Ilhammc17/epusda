@@ -17,12 +17,17 @@
                 </div>
 			    <!-- /.box-header -->
 			    <div class="box-body">
+            <?php
+              if ($this->session->pesan) { ?>
+                <?= $this->session->pesan; ?>
+              <?php }
+            ?>
                     <form action="<?php echo base_url('user/add');?>" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>NIM</label>
-                                    <input type="text" class="form-control" name="nim" required="required" placeholder="NIM">
+                                    <input type="text" class="form-control" name="nim" required="required" placeholder="NIM" onkeypress="return onlyNumber(event)">
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pengguna</label>
@@ -71,11 +76,11 @@
                                     <input type="email" class="form-control" name="email" required="required" placeholder="Contoh : fauzan1892@codekop.com">
                                 </div>
                                 <div class="form-group">
-                                    <label>Pas Foto</label>
+                                    <label>Pas Foto (jpg, jpeg, png)</label>
                                     <input type="file" accept="image/*" name="gambar" required="required">
                                 </div>
                                 <div class="form-group">
-                                    <label>KTP</label>
+                                    <label>KTP (jpg, jpeg, png)</label>
                                     <input type="file" accept="image/*" name="ktp" required="required">
                                 </div>
                                 <div class="form-group">
@@ -95,3 +100,11 @@
     </div>
 </section>
 </div>
+<script>
+	const onlyNumber = (evt) => {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
+</script>

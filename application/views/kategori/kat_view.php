@@ -28,6 +28,16 @@
 							<?php if(!empty($this->input->get('id'))){?>
 							<form method="post" action="<?= base_url('data/katproses');?>">
 								<div class="form-group">
+                  <label for="">No. Kelas</label>
+                  <input
+                    type="text"
+                    name="no_kelas"
+                    value="<?=$kat->no_kelas;?>"
+                    class="form-control"
+                    placeholder="Contoh : 001"
+                  >
+								</div>
+								<div class="form-group">
 								<label for="">Nama Kategori</label>
 								<input type="text" name="kategori"  value="<?=$kat->nama_kategori;?>" id="kategori" class="form-control"  placeholder="Contoh : Pemrograman Web" >
 								
@@ -39,6 +49,15 @@
 							<?php }else{?>
 
 							<form method="post" action="<?= base_url('data/katproses');?>">
+								<div class="form-group">
+                  <label for="">No. Kelas</label>
+                  <input
+                    type="text"
+                    name="no_kelas"
+                    class="form-control"
+                    placeholder="Contoh : 001"
+                  >
+								</div>
 								<div class="form-group">
 								<label for="">Nama Kategori</label>
 								<input type="text" name="kategori" id="kategori" class="form-control" placeholder="Contoh : Pemrograman Web" >
@@ -63,6 +82,7 @@
 								<thead>
 									<tr>
 										<th>No</th>
+										<th>No. Kelas</th>
 										<th>Kategori</th>
 										<th>Aksi</th>
 									</tr>
@@ -103,6 +123,7 @@
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }  
                 },
+                { "data": "no_kelas" },
                 { "data": "nama_kategori" },  
                 { "data": "id_kategori",
                     "render": 

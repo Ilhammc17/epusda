@@ -31,12 +31,15 @@ class Data extends CI_Controller {
 	{
 		$query  = "SELECT 
 					tbl_kategori.nama_kategori,
+					tbl_kategori.no_kelas,
 					tbl_rak.nama_rak,
 					tbl_buku.*,
-          tbl_subkategori.nama_subkategori
+          tbl_subkategori.nama_subkategori,
+          tbl_sumber.nama_sumber
 				FROM tbl_buku
 				LEFT JOIN tbl_kategori ON tbl_buku.id_kategori=tbl_kategori.id_kategori
 				LEFT JOIN tbl_subkategori ON tbl_buku.subkategori_id = tbl_subkategori.id_subkategori
+				LEFT JOIN tbl_sumber ON tbl_buku.sumber_id = tbl_sumber.id_sumber
 				LEFT JOIN tbl_rak ON tbl_buku.id_rak=tbl_rak.id_rak";
 		
 		$search = array('isbn','buku_id','title','nama_kategori','nama_rak','penerbit','thn_buku','jml','dipinjam','tgl_masuk');
@@ -100,6 +103,8 @@ class Data extends CI_Controller {
 	   
 			$this->data['kats'] =  $this->db->query("SELECT * FROM tbl_kategori ORDER BY id_kategori DESC")->result_array();
 			$this->data['rakbuku'] =  $this->db->query("SELECT * FROM tbl_rak ORDER BY id_rak DESC")->result_array();
+      $this->data['sumber'] =  $this->db->query("SELECT * FROM tbl_sumber ORDER BY id_sumber DESC")->result_array();
+      $this->data['subkategori'] =  $this->db->get_where('tbl_subkategori', ['kategori_id' => $this->data['buku']->id_kategori])->result_array();
 
 		}else{
 			echo '<script>alert("BUKU TIDAK DITEMUKAN");window.location="'.base_url('data').'"</script>';
@@ -123,6 +128,7 @@ class Data extends CI_Controller {
 
 		$this->data['kats'] =  $this->db->query("SELECT * FROM tbl_kategori ORDER BY id_kategori DESC")->result_array();
 		$this->data['rakbuku'] =  $this->db->query("SELECT * FROM tbl_rak ORDER BY id_rak DESC")->result_array();
+		$this->data['sumber'] =  $this->db->query("SELECT * FROM tbl_sumber ORDER BY id_sumber DESC")->result_array();
 
 
 		$this->data['sidebar'] = 'buku';
@@ -179,7 +185,8 @@ class Data extends CI_Controller {
 				'isbn' => htmlentities($post['isbn']), 
 				'title'  => htmlentities($post['title']), 
 				'pengarang'=> htmlentities($post['pengarang']), 
-				'penerbit'=> htmlentities($post['penerbit']),    
+				'penerbit'=> htmlentities($post['penerbit']),
+				'sumber_id'=> htmlentities($post['sumber_id']),    
 				'thn_buku' => htmlentities($post['thn']), 
 				'isi' => $this->input->post('ket'), 
 				'jml'=> htmlentities($post['jml']),  
@@ -252,11 +259,13 @@ class Data extends CI_Controller {
 			$post = $this->input->post();
 			$data = array(
 				'id_kategori'=>htmlentities($post['kategori']), 
+				'subkategori_id'	=> htmlentities($post['subkategori_id']),
 				'id_rak' => htmlentities($post['rak']), 
 				'isbn' => htmlentities($post['isbn']), 
 				'title'  => htmlentities($post['title']),
-				'pengarang'=> htmlentities($post['pengarang']), 
-				'penerbit'=> htmlentities($post['penerbit']),  
+				'pengarang'=> htmlentities($post['pengarang']),
+				'penerbit'=> htmlentities($post['penerbit']),
+				'sumber_id'=> htmlentities($post['sumber_id']),
 				'thn_buku' => htmlentities($post['thn']), 
 				'isi' => $this->input->post('ket'), 
 				'jml'=> htmlentities($post['jml']),  
@@ -322,7 +331,7 @@ class Data extends CI_Controller {
 			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
 					<p> Edit Buku Sukses !</p>
 				</div></div>');
-			redirect(base_url('data/bukuedit/'.$post['edit'])); 
+			redirect(base_url('data')); 
 		}
 	}
 
@@ -379,38 +388,75 @@ class Data extends CI_Controller {
 			redirect($url);
 		}
 
+		$kategoriUnique = $this->db->like('nama_kategori', $this->input->post('kategori'))->get('tbl_kategori');
+		$noKelasUnique  = $this->db->like('no_kelas', $this->input->post('no_kelas'))->get('tbl_kategori');
+
 		// tambah aksi form proses kategori
 		if(!empty($this->input->post('tambah')))
 		{
-			$post= $this->input->post();
-			$data = array(
-				'nama_kategori'=>htmlentities($post['kategori']),
-			);
+      $this->form_validation->set_rules('no_kelas', 'No. Kelas', 'required', ['required' => 'No. kelas harus diisi']);
+      $this->form_validation->set_rules('kategori', 'Nama Kategori', 'required', ['required' => 'Nama kategori harus diisi']);
 
-			$this->db->insert('tbl_kategori', $data);
-
-			
-			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
-			<p> Tambah Kategori Sukses !</p>
-			</div></div>');
-			redirect(base_url('data/kategori'));  
+      if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+            <p>' . validation_errors() . '</p>
+          </div></div>');
+      } else {
+        if ($kategoriUnique->num_rows() <= 0) {
+          if ($noKelasUnique->num_rows() <= 0) {
+            $post= $this->input->post();
+            $data = array(
+              'no_kelas'      => htmlentities($post['no_kelas']),
+              'nama_kategori' => htmlentities($post['kategori']),
+            );
+      
+            $this->db->insert('tbl_kategori', $data);
+      
+            
+            $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
+            <p> Tambah Kategori Sukses !</p>
+            </div></div>');
+            redirect(base_url('data/kategori'));
+          } else {
+            $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+                <p>No kelas sudah digunakan</p>
+              </div></div>');
+          }
+        } else {
+          $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+              <p>Nama kategori sudah digunakan</p>
+            </div></div>');
+        }
+      }
+      redirect($_SERVER['HTTP_REFERER']);
 		}
 
 		// edit aksi form proses kategori
 		if(!empty($this->input->post('edit')))
 		{
-			$post= $this->input->post();
-			$data = array(
-				'nama_kategori'=>htmlentities($post['kategori']),
-			);
-			$this->db->where('id_kategori',htmlentities($post['edit']));
-			$this->db->update('tbl_kategori', $data);
+      $this->form_validation->set_rules('no_kelas', 'No. Kelas', 'required', ['required' => 'No. kelas harus diisi']);
+      $this->form_validation->set_rules('kategori', 'Nama Kategori', 'required', ['required' => 'Nama kategori harus diisi']);
 
-
-			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
-			<p> Edit Kategori Sukses !</p>
-			</div></div>');
-			redirect(base_url('data/kategori')); 		
+      if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+            <p>' . validation_errors() . '</p>
+          </div></div>');
+        redirect($_SERVER['HTTP_REFERER']);
+      } else {
+        $post= $this->input->post();
+        $data = array(
+          'no_kelas'      => htmlentities($post['no_kelas']),
+          'nama_kategori' => htmlentities($post['kategori']),
+        );
+        $this->db->where('id_kategori',htmlentities($post['edit']));
+        $this->db->update('tbl_kategori', $data);
+  
+  
+        $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
+        <p> Edit Kategori Sukses !</p>
+        </div></div>');
+        redirect(base_url('data/kategori'));
+      } 		
 		}
 
 		// hapus aksi form proses kategori
@@ -487,18 +533,35 @@ class Data extends CI_Controller {
 		// tambah aksi form proses jurusan
 		if(!empty($this->input->post('tambah')))
 		{
-			$post= $this->input->post();
-			$data = array(
-				'nama_status'=>htmlentities($post['jurusan']),
-			);
+      $this->form_validation->set_rules('jurusan', 'Status', 'required', ['required' => 'Status harus diisi']);
 
-			$this->db->insert('tbl_status', $data);
+      if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+            <p>' . validation_errors() . '</p>
+          </div></div>');
+      } else {
+        $jurusanUnique  = $this->db->like('nama_status', $this->input->post('jurusan'))->get('tbl_status');
 
-			
-			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
-			<p> Tambah status Sukses !</p>
-			</div></div>');
-			redirect(base_url('data/jurusan'));  
+        if ($jurusanUnique->num_rows() <= 0) {
+          $post= $this->input->post();
+          $data = array(
+            'nama_status'=>htmlentities($post['jurusan']),
+          );
+    
+          $this->db->insert('tbl_status', $data);
+    
+          
+          $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
+          <p> Tambah status Sukses !</p>
+          </div></div>');
+          redirect(base_url('data/jurusan'));
+        } else {
+          $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+              <p>Status sudah digunakan</p>
+            </div></div>');
+        }
+      }
+      redirect($_SERVER['HTTP_REFERER']);
 		}
 
 		// edit aksi form proses jurusan
@@ -589,19 +652,36 @@ class Data extends CI_Controller {
 
 		// tambah aksi form proses rak
 		if(!empty($this->input->post('tambah')))
-		{
-			$post= $this->input->post();
-			$data = array(
-				'nama_rak'=>htmlentities($post['rak']),
-			);
+		{ 
+      $this->form_validation->set_rules('rak', 'Rak', 'required', ['required' => 'Rak harus diisi']);
 
-			$this->db->insert('tbl_rak', $data);
+      if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+            <p>' . validation_errors() . '</p>
+          </div></div>');
+      } else {
+        $rakUnique  = $this->db->like('nama_rak', $this->input->post('rak'))->get('tbl_rak');
 
-			
-			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
-			<p> Tambah Rak Buku Sukses !</p>
-			</div></div>');
-			redirect(base_url('data/rak'));  
+        if ($rakUnique->num_rows() <= 0) {
+          $post= $this->input->post();
+          $data = array(
+            'nama_rak'=>htmlentities($post['rak']),
+          );
+    
+          $this->db->insert('tbl_rak', $data);
+    
+          
+          $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
+          <p> Tambah Rak Buku Sukses !</p>
+          </div></div>');
+          redirect(base_url('data/rak'));
+        } else {
+          $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-warning">
+              <p>Rak sudah digunakan</p>
+            </div></div>');
+        }
+      }
+      redirect($_SERVER['HTTP_REFERER']);
 		}
 
 		// edit aksi form proses rak
