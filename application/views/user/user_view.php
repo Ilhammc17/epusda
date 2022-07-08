@@ -26,7 +26,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>ID</th>
-                                <th>NIM</th>
+                                <th>NIK</th>
                                 <th>Nama</th>
                                 <th>Status</th>
                                 <th>User</th>

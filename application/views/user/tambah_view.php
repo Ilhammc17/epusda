@@ -26,8 +26,8 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>NIM</label>
-                                    <input type="text" class="form-control" name="nim" required="required" placeholder="NIM" onkeypress="return onlyNumber(event)">
+                                    <label>NIK</label>
+                                    <input type="text" class="form-control" name="nim" required="required" placeholder="NIK" onkeypress="return onlyNumber(event)">
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Pengguna</label>
