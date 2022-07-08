@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2022 at 01:55 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- Generation Time: Jul 07, 2022 at 01:45 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -98,6 +98,7 @@ CREATE TABLE `tbl_buku` (
   `buku_id` varchar(255) NOT NULL,
   `id_kategori` int(11) NOT NULL,
   `subkategori_id` bigint(20) NOT NULL,
+  `sumber_id` varchar(191) NOT NULL,
   `id_rak` int(11) NOT NULL,
   `sampul` varchar(255) DEFAULT NULL,
   `isbn` varchar(255) DEFAULT NULL,
@@ -116,10 +117,10 @@ CREATE TABLE `tbl_buku` (
 -- Dumping data for table `tbl_buku`
 --
 
-INSERT INTO `tbl_buku` (`id_buku`, `buku_id`, `id_kategori`, `subkategori_id`, `id_rak`, `sampul`, `isbn`, `lampiran`, `title`, `penerbit`, `pengarang`, `thn_buku`, `isi`, `jml`, `dipinjam`, `tgl_masuk`) VALUES
-(20, 'BK0018', 13, 1, 6, 'e648ee0951fd0f28a534432ffef5dad5.png', 'a', NULL, 'a', 'a', 'a', '2222', '<p>a</p>', 12, 2, '2022-06-27 18:33:09'),
-(21, 'BK0021', 13, 1, 5, '911c5dc7370d0b48259fa2ce1b717542.png', '987-6657-7757-8', NULL, 'Pergerakan zaman 1945', 'Garapan Store', 'Ilham', '2022', '', 15, 0, '2022-06-30 08:59:29'),
-(22, 'BK0022', 13, 2, 5, 'de218dafdcff582e3714a0789dbc0055.jpg', '987-6657-7757-83', NULL, 'Kisah  perjalanan panjang', 'Garapan Store', 'Ilham', '2022', '', 0, 1, '2022-07-05 11:25:30');
+INSERT INTO `tbl_buku` (`id_buku`, `buku_id`, `id_kategori`, `subkategori_id`, `sumber_id`, `id_rak`, `sampul`, `isbn`, `lampiran`, `title`, `penerbit`, `pengarang`, `thn_buku`, `isi`, `jml`, `dipinjam`, `tgl_masuk`) VALUES
+(20, 'BK0018', 13, 1, '6', 6, 'e648ee0951fd0f28a534432ffef5dad5.png', 'a', NULL, 'a', 'a', 'a', '2222', '<p>a</p>', 12, 2, '2022-07-07 00:05:05'),
+(21, 'BK0021', 13, 1, '5', 5, '911c5dc7370d0b48259fa2ce1b717542.png', '987-6657-7757-8', NULL, 'Pergerakan zaman 1945', 'Garapan Store', 'Ilham', '2022', '', 15, 3, '2022-07-07 00:00:17'),
+(22, 'BK0022', 13, 1, '4', 5, 'de218dafdcff582e3714a0789dbc0055.jpg', '987-6657-7757-83', NULL, 'Kisah  perjalanan panjang', 'Garapan Store', 'Ilham', '2022', '', 0, 7, '2022-07-07 00:08:15');
 
 -- --------------------------------------------------------
 
@@ -162,6 +163,7 @@ INSERT INTO `tbl_denda` (`id_denda`, `pinjam_id`, `denda`, `lama_waktu`, `tgl_de
 
 CREATE TABLE `tbl_kategori` (
   `id_kategori` int(11) NOT NULL,
+  `no_kelas` varchar(191) NOT NULL,
   `nama_kategori` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -169,19 +171,18 @@ CREATE TABLE `tbl_kategori` (
 -- Dumping data for table `tbl_kategori`
 --
 
-INSERT INTO `tbl_kategori` (`id_kategori`, `nama_kategori`) VALUES
-(2, 'Pemrograman'),
-(3, 'Machine Learning'),
-(4, 'Karya Umum'),
-(5, 'Filsafat'),
-(6, 'Agama'),
-(7, 'Ilmu Sosial'),
-(8, 'Ilmu Bahasa'),
-(9, 'Ilmu Murni'),
-(10, 'Ilmu Terapan'),
-(11, 'Kesenian Olahraga Hiiburan'),
-(12, 'Fiksi'),
-(13, 'Geografi dan Sejarah');
+INSERT INTO `tbl_kategori` (`id_kategori`, `no_kelas`, `nama_kategori`) VALUES
+(2, '', 'Pemrograman'),
+(3, '012', 'Machine Learning'),
+(4, '011', 'Karya Umum'),
+(5, '010', 'Filsafat'),
+(6, '007', 'Agama'),
+(7, '006', 'Ilmu Sosial'),
+(8, '005', 'Ilmu Bahasa'),
+(9, '004', 'Ilmu Murni'),
+(10, '003', 'Ilmu Terapan'),
+(11, '002', 'Kesenian Olahraga Hiiburan'),
+(13, '001', 'Fiksi');
 
 -- --------------------------------------------------------
 
@@ -297,7 +298,11 @@ INSERT INTO `tbl_pinjam` (`id_pinjam`, `pinjam_id`, `anggota_id`, `buku_id`, `st
 (18, 'PJ0018', 'AG002', 'BK009', 'Di Kembalikan', 1, '2022-04-14', 2, '2022-04-16', '2022-06-30', '04-2022', '06-2022'),
 (19, 'PJ0019', 'AG008', 'BK0021', 'Di Kembalikan', 1, '2022-07-05', 8, '2022-07-13', '2022-07-05', '07-2022', '07-2022'),
 (20, 'PJ0020', 'AG002', 'BK0018', 'Dipinjam', 2, '2022-07-05', 7, '2022-07-12', '0', '07-2022', NULL),
-(21, 'PJ0021', 'AG008', 'BK0022', 'Dipinjam', 1, '2022-07-05', 7, '2022-07-12', '0', '07-2022', NULL);
+(21, 'PJ0021', 'AG008', 'BK0022', 'Dipinjam', 1, '2022-07-05', 7, '2022-07-12', '0', '07-2022', NULL),
+(22, 'PJ0022', 'AG008', 'BK0021', 'Dipinjam', 1, '2022-07-06', 7, '2022-07-13', '0', '07-2022', NULL),
+(23, 'PJ0023', 'AG002', 'BK0021', 'Dipinjam', 1, '2022-07-06', 4, '2022-07-10', '0', '07-2022', NULL),
+(24, 'PJ0024', 'AG008', 'BK0021', 'Dipinjam', 1, '2022-07-06', 1, '2022-07-07', '0', '07-2022', NULL),
+(25, 'PJ0025', 'AG002', 'BK0022', 'Dipinjam', 6, '2022-07-07', 8, '2022-07-15', '0', '07-2022', NULL);
 
 -- --------------------------------------------------------
 
@@ -358,7 +363,27 @@ CREATE TABLE `tbl_subkategori` (
 
 INSERT INTO `tbl_subkategori` (`id_subkategori`, `kategori_id`, `nama_subkategori`) VALUES
 (1, 13, 'Publikasi umum'),
-(2, 13, 'Bibiliografii');
+(2, 13, 'aku kasassssss');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sumber`
+--
+
+CREATE TABLE `tbl_sumber` (
+  `id_sumber` bigint(20) NOT NULL,
+  `nama_sumber` varchar(191) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_sumber`
+--
+
+INSERT INTO `tbl_sumber` (`id_sumber`, `nama_sumber`) VALUES
+(4, 'APBN'),
+(5, 'APBN 2019'),
+(6, 'APBN 2020');
 
 --
 -- Indexes for dumped tables
@@ -410,7 +435,8 @@ ALTER TABLE `tbl_keranjang`
 -- Indexes for table `tbl_login`
 --
 ALTER TABLE `tbl_login`
-  ADD PRIMARY KEY (`id_login`);
+  ADD PRIMARY KEY (`id_login`),
+  ADD UNIQUE KEY `user` (`user`);
 
 --
 -- Indexes for table `tbl_pengunjung`
@@ -444,6 +470,12 @@ ALTER TABLE `tbl_subkategori`
   ADD KEY `kategori_id` (`kategori_id`);
 
 --
+-- Indexes for table `tbl_sumber`
+--
+ALTER TABLE `tbl_sumber`
+  ADD PRIMARY KEY (`id_sumber`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -463,7 +495,7 @@ ALTER TABLE `tbl_atur`
 -- AUTO_INCREMENT for table `tbl_biaya_denda`
 --
 ALTER TABLE `tbl_biaya_denda`
-  MODIFY `id_biaya_denda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_biaya_denda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_buku`
@@ -481,13 +513,13 @@ ALTER TABLE `tbl_denda`
 -- AUTO_INCREMENT for table `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_keranjang`
 --
 ALTER TABLE `tbl_keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
@@ -505,25 +537,31 @@ ALTER TABLE `tbl_pengunjung`
 -- AUTO_INCREMENT for table `tbl_pinjam`
 --
 ALTER TABLE `tbl_pinjam`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tbl_rak`
 --
 ALTER TABLE `tbl_rak`
-  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_status`
 --
 ALTER TABLE `tbl_status`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_subkategori`
 --
 ALTER TABLE `tbl_subkategori`
-  MODIFY `id_subkategori` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_subkategori` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tbl_sumber`
+--
+ALTER TABLE `tbl_sumber`
+  MODIFY `id_sumber` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

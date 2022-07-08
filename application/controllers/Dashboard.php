@@ -70,7 +70,7 @@ class Dashboard extends CI_Controller {
 		echo $this->M_Datatables->get_tables_query($query,$search,$where,$isWhere);
 	}
 
-	public function store()
+	public function pengunjung()
 	{
 		
 		$this->form_validation->set_rules("nama", "Nama", "required");

@@ -1,11 +1,11 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            Visitor Counter  <small>Control panel</small>
+            Buku Tamu Pengunjung  <small>Control panel</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Visitor Counter</li>
+            <li class="active">Track Pengunjung</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -33,24 +33,54 @@
                 <?= alert_bs();?>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        Visitor Counter
+                        Buku Tamu Pengunjung
                     </div>
                     <div class="panel-body" style="text-align:center">
-                        <form method="post" action="<?= base_url('dashboard/store');?>">
-                            <h3>PENGHITUNG JUMLAH PENGUNJUNG</h3>
-                            <h4>Bagi belum menjadi anggota perpustakaan, silahkan masukan Nama Lengkap</h4>
+                        <form method="post" action="<?= base_url('dashboard/pengunjung');?>">
+                            <h3>Selamat Datang Di Halaman Lobby</h3>
+                            <h4>Bagi Pengunjung Yang Datang, Silahkan Masukan Data Dengan Lengkap</h4>
                             <br>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input type="text" name="anggota_id" autofocus autocomplete="off"
                                     class="form-control form-lg" id="anggota_id"
                                     style="height:50px; font-size:16pt;"
                                     placeholder="Masukan Anggota ID" aria-describedby="helpId">
+                            </div> -->
+                            <div class="form-group">
+                                <input type="text" name="nama" autocomplete="off"
+                                    class="form-control form-lg"  id="nama"
+                                    style="height:50px; font-size:16pt;"
+                                    placeholder="Nama Lengkap" aria-describedby="helpId">
                             </div>
                             <div class="form-group">
                                 <input type="text" name="nama" autocomplete="off"
                                     class="form-control form-lg"  id="nama"
                                     style="height:50px; font-size:16pt;"
-                                    placeholder="Masukan Nama Lengkap" aria-describedby="helpId">
+                                    placeholder="Pekerjaan" aria-describedby="helpId">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nama" autocomplete="off"
+                                    class="form-control form-lg"  id="nama"
+                                    style="height:50px; font-size:16pt;"
+                                    placeholder="Pendidikan Terakhir" aria-describedby="helpId">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nama" autocomplete="off"
+                                    class="form-control form-lg"  id="nama"
+                                    style="height:50px; font-size:16pt;"
+                                    placeholder="Jenis Kelamin" aria-describedby="helpId">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nama" autocomplete="off"
+                                    class="form-control form-lg"  id="nama"
+                                    style="height:50px; font-size:16pt;"
+                                    placeholder="Alamat Lengkap" aria-describedby="helpId">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="nama" autocomplete="off"
+                                    class="form-control form-lg"  id="nama"
+                                    style="height:50px; font-size:16pt;"
+                                    placeholder="Token" aria-describedby="helpId">
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 <i class="fa fa-user-plus"></i> Tambah
