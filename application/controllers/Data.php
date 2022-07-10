@@ -24,7 +24,7 @@ class Data extends CI_Controller
 		$this->data['buku'] =  $this->db->query("SELECT * FROM tbl_buku ORDER BY id_buku DESC");
 		$this->data['title_web'] = 'Data Buku';
 		$this->data['sidebar'] = 'buku_data';
-		$this->data['subkategori'] = $this->subkategori_m->read()->result_array();
+		$this->data['subkategori'] = $this->db->query("SELECT * FROM tbl_subkategori JOIN tbl_buku ON tbl_buku.subkategori_id = tbl_subkategori.id_subkategori group by tbl_subkategori.id_subkategori")->result_array();
 		$this->data['subkategori_filter'] = null;
 		$this->data['filter_filter'] = null;
 		$this->data['keyword_filter'] = null;
@@ -42,7 +42,7 @@ class Data extends CI_Controller
 		$this->data['buku'] =  $this->db->query("SELECT * FROM tbl_buku ORDER BY id_buku DESC");
 		$this->data['title_web'] = 'Data Buku';
 		$this->data['sidebar'] = 'buku_data';
-		$this->data['subkategori'] = $this->subkategori_m->read()->result_array();
+		$this->data['subkategori'] = $this->db->query("SELECT * FROM tbl_subkategori JOIN tbl_buku ON tbl_buku.subkategori_id = tbl_subkategori.id_subkategori group by tbl_subkategori.id_subkategori")->result_array();
 		$this->data['subkategori_filter'] = $input['subkategori'];
 		$this->data['filter_filter'] = $input['filter'];
 		$this->data['keyword_filter'] = $input['keyword'];

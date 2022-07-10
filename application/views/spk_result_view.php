@@ -100,7 +100,7 @@
 
             <table class="iteration table table-striped">
               <tr>
-                <th colspan="7">
+                <th colspan="8">
                   Hasil Cluster 1 (Sangat Diminati)
                 </th>
               </tr>
@@ -112,6 +112,7 @@
                 <th>Banyak Dicari</th>
                 <th>Stok</th>
                 <th>Judul Buku</th>
+                <th>Kesimpulan</th>
               </tr>
               <?php if (count($result_c1) > 0) { ?>
                 <?php $no = 1;
@@ -122,8 +123,9 @@
                     <td><?= $value['nama_subkategori'] ?></td>
                     <td><?= $value['peminjam'] ?></td>
                     <td><?= $value['pencarian'] ?></td>
-                    <td><?= $value['stok'] ?></td>
+                    <td><?= $value['stok_per_buku'] ?></td>
                     <td><?= $value['judul_buku'] ?></td>
+                    <td>Buku dengan subkategori tersebut adalah buku yang sangat diminati, karena memiliki jumlah penncarian dan jumlah peminjaman lebih banyak dari subkategori yang lainnya maka dari itu buku dengan subkategori ini menjadi salah satu rekomendasi buku yang akan di adakan di pengadaan !</td>
                   </tr>
                 <?php } ?>
               <?php } else { ?>

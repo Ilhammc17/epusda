@@ -142,6 +142,7 @@ class Spk extends CI_Controller
     foreach ($list_all_data[$iteration - 2] as $item) {
       $buku = $this->buku_m->get_one_result_cluster($item['id_subkategori'])->row_array();
       $item['judul_buku'] = $buku['title'];
+      $item['stok_per_buku'] = $buku['jml'];
       if ($item['label'] == 'c1') {
         array_push($result_c1, $item);
       } else if ($item['label'] == 'c2') {
@@ -270,6 +271,7 @@ class Spk extends CI_Controller
     foreach ($list_all_data[$iteration - 2] as $item) {
       $buku = $this->buku_m->get_one_result_cluster($item['id_subkategori'])->row_array();
       $item['judul_buku'] = $buku['title'];
+      $item['stok_per_buku'] = $buku['jml'];
       if ($item['label'] == 'c1') {
         array_push($result_c1, $item);
       } else if ($item['label'] == 'c2') {
