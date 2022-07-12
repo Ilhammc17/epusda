@@ -8,11 +8,11 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      SPK
+      Pengadaan Buku
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">SPK</li>
+      <li class="active">Pengadaan</li>
     </ol>
   </section>
   <!-- Main content -->
@@ -29,9 +29,9 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="form-group">
-                    <label>Jenis</label>
+                    <label>Klasterisasi Pengadaan Buku</label>
                     <select class="form-control select2" required="required" name="jenis_tahun" id="kategori" required>
-                      <option disabled selected value> -- Pilih Jenis -- </option>
+                      <option disabled selected value> -- Pilih Berdasarkan -- </option>
                       <option value="start"> Dari Tahun </option>
                       <option value="on"> Pada Tahun </option>
 

@@ -7,16 +7,8 @@
   <title><?php echo $title_web;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="shortcut icon" href="" />
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css');?>">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/bower_components/font-awesome/css/font-awesome.min.css');?>">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/bower_components/Ionicons/css/ionicons.min.css');?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/dist/css/AdminLTE.min.css');?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/dist/css/responsivelogin.css');?>">
+  
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css');?>"> 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,9 +36,9 @@
   </head>
 <body class="hold-transition login-page" style="overflow-y: hidden;background:url(
 	'<?php echo base_url('assets/image/Buku-2.jpg');?>')no-repeat;background-size:100% 100%; ">
-<div class="login-box">
+<!-- <div class="login-box">
   <?=alert_bs();?>
-  <!-- /.login-logo -->
+  
   <div class="login-box-body text-center bg-green">
     <a href="index.php" style="color:#fff;font-size:20px !important;"><b>Sistem EPusda</b></a>
   </div>
@@ -65,19 +57,53 @@
           <button type="submit" id="loding" class="btn btn-primary btn-flat">Sign In</button>
           <a href="<?= base_url();?>" class="btn btn-danger btn-flat">Back</a>
         </div>
-        <!-- /.col -->
+        
       </div>
       <br>
-      <!-- <p>Belum Punya Akun ? Silahkan <a href="<?= base_url('login/daftar');?>">Daftar</a></p> -->
+      <p>Belum Punya Akun ? Silahkan <a href="<?= base_url('login/daftar');?>">Daftar</a></p> 
     </form>
   </div>
-  <!-- /.login-box-body -->
+  
   <footer>
     <div class="login-box-body text-center bg-green">
        <a style="color: #fff;"> Sistem Perpustakaan Daerah Kab. Subang - <?php echo date("Y");?>
     </div>
   </footer>
-</div>
+</div> -->
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="px-0 content-wrapper d-flex align-items-center auth">
+        <div class="mx-0 row w-100">
+          <div class="mx-auto col-lg-4">
+            <div class="auth-form-light text-center py-5 px-4 px-sm-5">
+                <div class="brand-logo">
+                <img src="<?= base_url(''); ?>" heigth="1000" alt="logo">
+              </div>
+              <div>Selamat Datang di</div>
+              <div class="wrapper">
+              <div class="typingdemo">Sistem Perpustakaan Subang</div>
+              </div>
+              <form class="pt-3" action="<?= base_url('login/auth');?>" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" id="user" name="user" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" id="pass" name="pass" required="required" autocomplete="off">
+                </div>
+                <div class="mt-3">
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" id="loding">SIGN IN</button>
+                  <a href="<?= base_url();?>" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn">Back</a>
+                </div>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
 <!-- /.login-box -->
 <!-- Response Ajax -->
 <div id="tampilkan"></div>

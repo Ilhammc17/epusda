@@ -170,19 +170,11 @@
 							<i class="fa fa-money"></i> <span>Denda</span>
 
 						</a>
-					<li class="<?php if ($sidebar == 'pengadaan') {
-												echo 'active';
-											} ?>">
-						<a href="<?php echo base_url("sf"); ?>" class="cursor">
-							<i class="fa fa-book"></i> <span>Pengadaan</span>
-
-						</a>
-					</li>
 					<li class="<?php if ($sidebar == 'spk') {
 												echo 'active';
 											} ?>">
 						<a href="<?php echo base_url("spk"); ?>" class="cursor">
-							<i class="fa fa-book"></i> <span>SPK</span>
+							<i class="fa fa-book"></i> <span>Pengadaan</span>
 
 						</a>
 					</li>

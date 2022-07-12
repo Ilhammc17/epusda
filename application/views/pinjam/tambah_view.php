@@ -177,7 +177,7 @@
                     }
                 },
                 { "data": "isbn" },
-                { "data": "title" },  
+                { "data": "title" },
                 { "data": "penerbit" },  
                 { "data": "thn_buku" }, 
                 { "data": "buku_id",
