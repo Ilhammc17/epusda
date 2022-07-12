@@ -251,6 +251,7 @@
                     }
                     $sql_filter_count = $sql_filter->num_rows();
                 }
+                
                 $data = $sql_data->result_array();
             }
 
@@ -261,9 +262,6 @@
               }
             }
 
-            // print_r($data);
-            // die();
-            
             $callback = array(    
                 'draw' => $_POST['draw'], // Ini dari datatablenya    
                 'recordsTotal' => $sql_count,    

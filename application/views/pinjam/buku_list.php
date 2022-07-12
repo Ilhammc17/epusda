@@ -3,25 +3,29 @@
     <thead>
         <tr>
             <th>No</th>
+            <th>No. Kelas</th>
+            <th>Nama Kategori</th>
             <th>Title</th>
             <th>Penerbit / Tahun</th>
-            <th>Jml</th>
             <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
     <?php 
         $no=1;
-        $cart =  $this->db->query("SELECT * FROM tbl_keranjang WHERE login_id = ?",[$this->session->userdata('ses_id')])
+        $cart =  $this->db->query("SELECT * FROM tbl_keranjang 
+                                    JOIN tbl_buku ON tbl_keranjang.kode_buku = tbl_buku.buku_id
+                                    JOIN tbl_kategori ON tbl_buku.id_kategori = tbl_kategori.id_kategori
+                                    WHERE login_id = ?",[$this->session->userdata('ses_id')])
                     ->result_array();
         foreach($cart as $items){
     ?>
         <tr>
             <td><?= $no;?></td>
+            <td><?= $items['no_kelas'];?></td>
+            <td><?= $items['nama_kategori'];?></td>
             <td><?= $items['nama_buku'];?></td>
             <td><?= $items['penerbit'];?> / <?= $items['tahun'];?></td>
-            <td><input type="number" name="jml" id="jml<?=$no;?>" 
-                    data_<?=$no;?>="<?= $items['id'];?>" value="<?= $items['jml'];?>" class="form-control form-control-sm"></td>
             <td>
                 <a href="javascript:void(0)" 
                     id="delete_buku<?=$no;?>" 

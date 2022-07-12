@@ -40,13 +40,6 @@
 							<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 						</a>
 					</li>
-					<li class="<?php if ($this->uri->uri_string() == 'dashboard/track') {
-												echo 'active';
-											} ?>">
-						<a href="<?php echo base_url('dashboard/track'); ?>">
-							<i class="fa fa-user-plus"></i> <span> Track Pengunjung</span>
-						</a>
-					</li>
 					<li class="<?php if ($this->uri->uri_string() == 'dashboard/data') {
 												echo 'active';
 											} ?>">
@@ -249,6 +242,11 @@
 						<i class="fa fa-sign-in"></i> <span>Login Area</span>
 					</a>
 				</li>
+        <li class="<?= $this->uri->uri_string() == 'dashboard/track' ? 'active' : ''; ?>">
+          <a href="<?= base_url('track_pengunjung'); ?>">
+            <i class="fa fa-user-plus"></i> <span> Track Pengunjung</span>
+          </a>
+        </li>
 				<!-- <li class="<?php if ($sidebar == 'register') {
 													echo 'active';
 												} ?>">

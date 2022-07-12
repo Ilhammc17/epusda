@@ -92,8 +92,8 @@
               $m = '0' . $n;
             }
             $gr = $this->db->query("SELECT * FROM tbl_pengunjung 
-                          WHERE YEAR(tgl_masuk) = '$thn' 
-                          AND MONTH(tgl_masuk) = '$m'")->num_rows();
+                          WHERE YEAR(created_at) = '$thn' 
+                          AND MONTH(created_at) = '$m'")->num_rows();
           ?>
             <?php echo $gr; ?>,
           <?php } ?>

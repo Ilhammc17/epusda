@@ -15,14 +15,27 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-3">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Pengunjung Hari ini
-                            </div>
-                            <div class="panel-body" style="text-align:center">
-                                <h1><?= $count_pengunjung;?></h1>
-                            </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="panel panel-primary">
+                              <div class="panel-heading">
+                                  Pengunjung Hari ini
+                              </div>
+                              <div class="panel-body" style="text-align:center">
+                                  <h1><?= $count_pengunjung;?></h1>
+                              </div>
+                          </div>
                         </div>
+                        <div class="col-sm-12">
+                          <div class="panel panel-primary">
+                            <div class="panel-heading">Generate Token</div>
+                            <div class="panel-body" style="text-align:center">
+                              <?= $token['token']; ?>
+                              <a class="btn btn-success" href="<?= base_url('token'); ?>">Generate</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-sm-9">
                         <div class="panel panel-primary">
@@ -86,7 +99,6 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>ID Anggota</th>
                                         <th>Nama</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Aksi</th>
@@ -124,16 +136,6 @@
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }  
                 }, 
-                { "data": "anggota_id",
-                    "render": 
-                    function( data, type, row, meta ) {
-                        if(row.angota_id == null){
-                            return '-';
-                        }else{
-                            return row.anggota_id;
-                        }
-                    }
-                },
                 { "data": "nama" },  
                 { "data": "created_at" },  
                 { "data": "id",
@@ -183,8 +185,8 @@
                               $m = '0'.$n;
                           }
                           $gr = $this->db->query("SELECT * FROM tbl_pengunjung 
-                            WHERE YEAR(tgl_masuk) = '$thn' 
-                            AND MONTH(tgl_masuk) = '$m'")->num_rows();
+                            WHERE YEAR(created_at) = '$thn' 
+                            AND MONTH(created_at) = '$m'")->num_rows();
                       ?>                                          
                       <?php echo $gr;?>,
                       <?php } ?>

@@ -32,25 +32,15 @@ class Dashboard extends CI_Controller {
 		$this->load->view('footer_view',$this->data);
 	}
 
-	public function track()
-	{
-		$this->data['uid'] = $this->session->userdata('ses_id');
-		$this->data['title_web'] = 'Visitor Counter';
-		$this->data['count_pengunjung'] = $this->db->query("SELECT * FROM tbl_pengunjung WHERE tgl_masuk = ?", [date('Y-m-d')])->num_rows();
-		$this->data['sidebar'] = 'track';
-		$this->load->view('header_view',$this->data);
-		$this->load->view('sidebar_view',$this->data);
-		$this->load->view('track_view',$this->data);
-		$this->load->view('footer_view',$this->data);
-	}
-
 	public function data()
 	{
 		$this->data['uid'] = $this->session->userdata('ses_id');
 		$this->data['title_web'] = 'Visitor Counter';
 		$this->data['tbl_pengunjung'] = $this->db->query("SELECT * FROM tbl_pengunjung ORDER BY id DESC")->result();
-		$this->data['count_pengunjung'] = $this->db->query("SELECT * FROM tbl_pengunjung WHERE tgl_masuk = ?", [date('Y-m-d')])->num_rows();
+		$this->data['count_pengunjung'] = $this->db->like('created_at', date('Y-m-d'))->get("tbl_pengunjung")->num_rows();
 		$this->data['sidebar'] = 'track';
+    $this->data['token']  = $this->db->get_where('token', ['id_token' => 1])->row_array();
+
 		$this->load->view('header_view',$this->data);
 		$this->load->view('sidebar_view',$this->data);
 		$this->load->view('track_data',$this->data);
@@ -60,7 +50,7 @@ class Dashboard extends CI_Controller {
 	public function data_pengunjung()
 	{
 		$query  = "SELECT * FROM  tbl_pengunjung";
-		$search = array('anggota_id','nama','tgl_masuk');
+		$search = array('nama', 'created_at');
 		$where  = null;
 		// $where  = array('nama_kategori' => 'Tutorial');
 		// jika memakai IS NULL pada where sql

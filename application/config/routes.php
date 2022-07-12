@@ -5,6 +5,10 @@ $route['default_controller']            = 'data';
 $route['404_override']                  = '';
 $route['translate_uri_dashes']          = FALSE;
 $route['data/kategori/(:any)']['get']   = 'KategoriController/index/$1';
+$route['token']['get']                  = 'Data/generateToken';
+
+$route['track_pengunjung']['get']   = 'Data/trackPengunjung';
+$route['track_pengunjung']['post']  = 'Data/storeTrackPengunjung';
 
 $route['data/subkategori/data/(:any)']['post']          = 'KategoriController/data/$1';
 $route['data/subkategori/data_select/(:any)']['post']   = 'KategoriController/data_select/$1';

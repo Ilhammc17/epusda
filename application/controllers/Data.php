@@ -101,6 +101,49 @@ class Data extends CI_Controller
 		echo $this->M_Datatables->get_tables_query($query, $search, $where, $isWhere, $include);
 	}
 
+	public function data_buku_pinjam($anggota_id = null)
+	{
+		$query  = "SELECT 
+					tbl_kategori.nama_kategori,
+					tbl_kategori.no_kelas,
+					tbl_rak.nama_rak,
+					tbl_buku.*,
+          tbl_subkategori.nama_subkategori,
+          tbl_sumber.nama_sumber
+				FROM tbl_buku
+				LEFT JOIN tbl_kategori ON tbl_buku.id_kategori=tbl_kategori.id_kategori
+				LEFT JOIN tbl_subkategori ON tbl_buku.subkategori_id = tbl_subkategori.id_subkategori
+				LEFT JOIN tbl_sumber ON tbl_buku.sumber_id = tbl_sumber.id_sumber
+				LEFT JOIN tbl_rak ON tbl_buku.id_rak=tbl_rak.id_rak";
+
+		$search = array('isbn', 'buku_id', 'title', 'nama_kategori', 'nama_subkategori', 'pengarang', 'no_kelas', 'nama_rak', 'penerbit', 'thn_buku', 'jml', 'dipinjam', 'tgl_masuk');
+		$where  = ['tbl_buku.jml >' => 1];
+
+		if ($this->input->get('sortir')) {
+			$sortir = htmlspecialchars($this->input->get('sortir'));
+			$isWhere = "nama_kategori LIKE '%$sortir%' AND tbl_buku.buku_id NOT IN (SELECT buku_id FROM tbl_pinjam WHERE anggota_id = '$anggota_id' AND status = 'Dipinjam')";
+		} else {
+			if ($this->input->get('rak')) {
+				$rak = htmlspecialchars($this->input->get('rak'));
+				$isWhere = "nama_rak LIKE '%$rak%' AND tbl_buku.buku_id NOT IN (SELECT buku_id FROM tbl_pinjam WHERE anggota_id = '$anggota_id' AND status = 'Dipinjam')";
+			} else {
+        if ($anggota_id) {
+          $isWhere  = "tbl_buku.buku_id NOT IN (SELECT buku_id FROM tbl_pinjam WHERE anggota_id = '$anggota_id' AND status = 'Dipinjam')";
+        } else {
+          $isWhere = null;
+        }
+			}
+		}
+
+		$include  = 'pengarang_tambahan';
+
+		// $where  = array('nama_kategori' => 'Tutorial');
+		// jika memakai IS NULL pada where sql
+		// $isWhere = 'artikel.deleted_at IS NULL';
+		header('Content-Type: application/json');
+		echo $this->M_Datatables->get_tables_query($query, $search, $where, $isWhere, $include);
+	}
+
 	public function bukudetail()
 	{
 		$this->data['uid'] = $this->session->userdata('ses_id');
@@ -724,6 +767,49 @@ class Data extends CI_Controller
 			redirect(base_url('data/rak'));
 		}
 	}
+
+  public function trackPengunjung()
+  {
+		$this->data['title_web']        = 'Visitor Counter';
+		$this->data['count_pengunjung'] = $this->db->query("SELECT * FROM tbl_pengunjung WHERE created_at = ?", [date('Y-m-d')])->num_rows();
+		$this->data['sidebar']          = 'track';
+
+		$this->load->view('header_view',$this->data);
+		$this->load->view('sidebar_view',$this->data);
+		$this->load->view('track_view',$this->data);
+		$this->load->view('footer_view',$this->data);
+  }
+
+  public function storeTrackPengunjung()
+  {
+		$this->form_validation->set_rules("nama", "Nama", "required");
+		$this->form_validation->set_rules("pekerjaan", "Pekerjaan", "required");
+		$this->form_validation->set_rules("pendidikan_terakhir", "Pendidikan Terakhir", "required");
+		$this->form_validation->set_rules("jenis_kelamin", "Jenis Kelamin", "required");
+		$this->form_validation->set_rules("alamat", "Alamat", "required");
+		$this->form_validation->set_rules("token", "Token", "required");
+
+    if ($this->form_validation->run() !== FALSE) {
+      $result = $this->db->get_where('token', ['token' => $this->input->post('token')])->row_array();
+
+      if ($result) {
+        $this->db->insert('tbl_pengunjung', $this->input->post());
+        $this->session->set_flashdata("success", "Berhasil input pengunjung");
+      } else {
+        $this->session->set_flashdata("failed", "Token salah!");
+      }
+    } else {
+			$this->session->set_flashdata("failed", "Gagal Insert Data ! " . validation_errors());
+    }
+
+    redirect($_SERVER['HTTP_REFERER']);
+  }
+
+  public function generateToken()
+  {
+    $this->db->update('token', ['token' => random_int(1000, 9999)], ['id_token' => 1]);
+    redirect($_SERVER['HTTP_REFERER']);
+  }
 	/*
 	|	END CRUD MENU RAK
 	*/

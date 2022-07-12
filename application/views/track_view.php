@@ -25,7 +25,7 @@
                         Grafik Pengunjung Tahun <?= $thn;?>
                     </div>
                     <div class="panel-body">
-                        <canvas id="line-chart" height="100"></canvas>
+                        <canvas id="line-chart" height="440"></canvas>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                         Buku Tamu Pengunjung
                     </div>
                     <div class="panel-body" style="text-align:center">
-                        <form method="post" action="<?= base_url('dashboard/pengunjung');?>">
+                        <form method="post" action="<?= base_url('track_pengunjung');?>">
                             <h3>Selamat Datang Di Halaman Lobby</h3>
                             <h4>Bagi Pengunjung Yang Datang, Silahkan Masukan Data Dengan Lengkap</h4>
                             <br>
@@ -46,41 +46,133 @@
                                     style="height:50px; font-size:16pt;"
                                     placeholder="Masukan Anggota ID" aria-describedby="helpId">
                             </div> -->
+
+                            <?php
+                              if ($this->session->success) { ?>
+                                <div class="alert alert-success"><?= $this->session->success; ?></div>
+                              <?php }
+                            ?>
+                            <?php
+                              if ($this->session->failed) { ?>
+                                <div class="alert alert-danger"><?= $this->session->failed; ?></div>
+                              <?php }
+                            ?>
                             <div class="form-group">
                                 <input type="text" name="nama" autocomplete="off"
                                     class="form-control form-lg"  id="nama"
                                     style="height:50px; font-size:16pt;"
                                     placeholder="Nama Lengkap" aria-describedby="helpId">
                             </div>
-                            <div class="form-group">
-                                <input type="text" name="nama" autocomplete="off"
-                                    class="form-control form-lg"  id="nama"
-                                    style="height:50px; font-size:16pt;"
-                                    placeholder="Pekerjaan" aria-describedby="helpId">
+                            <div class="form-group" style="text-align: left">
+                              <label>Pekerjaan</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pekerjaan" id="exampleRadios" value="Pegawai Negeri">
+                                <label class="form-check-label" for="exampleRadios">
+                                  Pegawai Negeri
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pekerjaan" id="exampleRadios0" value="Pegawai Swasta">
+                                <label class="form-check-label" for="exampleRadios0">
+                                  Pegawai Swasta
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pekerjaan" id="exampleRadios1" value="Wiraswasta">
+                                <label class="form-check-label" for="exampleRadios1">
+                                  Wiraswasta
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pekerjaan" id="exampleRadios2" value="Mahasiswa">
+                                <label class="form-check-label" for="exampleRadios2">
+                                  Mahasiswa
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pekerjaan" id="exampleRadios3" value="Lainnya">
+                                <label class="form-check-label" for="exampleRadios3">
+                                  Lainnya
+                                </label>
+                              </div>
+                            </div>
+                            <div class="form-group" style="text-align: left">
+                              <label>Pendidikan Terakhir</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pendidikan_terakhir" id="pendidikanTerakhir" value="SD">
+                                <label class="form-check-label" for="pendidikanTerakhir">
+                                  SD
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pendidikan_terakhir" id="pendidikanTerakhir0" value="SMP">
+                                <label class="form-check-label" for="pendidikanTerakhir0">
+                                  SMP
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pendidikan_terakhir" id="pendidikanTerakhir1" value="SMA">
+                                <label class="form-check-label" for="pendidikanTerakhir1">
+                                  SMA
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pendidikan_terakhir" id="pendidikanTerakhir2" value="S1">
+                                <label class="form-check-label" for="pendidikanTerakhir2">
+                                  S1
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pendidikan_terakhir" id="pendidikanTerakhir3" value="S2">
+                                <label class="form-check-label" for="pendidikanTerakhir3">
+                                  S2
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pendidikan_terakhir" id="pendidikanTerakhir3" value="D1">
+                                <label class="form-check-label" for="pendidikanTerakhir3">
+                                  D1
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="pendidikan_terakhir" id="pendidikanTerakhir3" value="D3">
+                                <label class="form-check-label" for="pendidikanTerakhir3">
+                                  D3
+                                </label>
+                              </div>
+                            </div>
+                            <div class="form-group" style="text-align: left">
+                              <label>Jenis Kelamin</label>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenkel" value="Laki - Laki">
+                                <label class="form-check-label" for="jenkel">
+                                  Laki - Laki
+                                </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="jenis_kelamin" id="jenkel0" value="Perempuan">
+                                <label class="form-check-label" for="jenkel0">
+                                  Perempuan
+                                </label>
+                              </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nama" autocomplete="off"
-                                    class="form-control form-lg"  id="nama"
-                                    style="height:50px; font-size:16pt;"
-                                    placeholder="Pendidikan Terakhir" aria-describedby="helpId">
+                              <input
+                                type="text"
+                                name="alamat"
+                                class="form-control form-lg"
+                                style="height:50px; font-size:16pt;"
+                                placeholder="Alamat Lengkap"
+                              >
                             </div>
                             <div class="form-group">
-                                <input type="text" name="nama" autocomplete="off"
-                                    class="form-control form-lg"  id="nama"
-                                    style="height:50px; font-size:16pt;"
-                                    placeholder="Jenis Kelamin" aria-describedby="helpId">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="nama" autocomplete="off"
-                                    class="form-control form-lg"  id="nama"
-                                    style="height:50px; font-size:16pt;"
-                                    placeholder="Alamat Lengkap" aria-describedby="helpId">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="nama" autocomplete="off"
-                                    class="form-control form-lg"  id="nama"
-                                    style="height:50px; font-size:16pt;"
-                                    placeholder="Token" aria-describedby="helpId">
+                              <input
+                                type="text"
+                                name="token"
+                                class="form-control form-lg"
+                                style="height:50px; font-size:16pt;"
+                                placeholder="Token"
+                              >
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 <i class="fa fa-user-plus"></i> Tambah
@@ -140,8 +232,8 @@
                               $m = '0'.$n;
                           }
                           $gr = $this->db->query("SELECT * FROM tbl_pengunjung 
-                            WHERE YEAR(tgl_masuk) = '$thn' 
-                            AND MONTH(tgl_masuk) = '$m'")->num_rows();
+                            WHERE YEAR(created_at) = '$thn' 
+                            AND MONTH(created_at) = '$m'")->num_rows();
                       ?>                                          
                       <?php echo $gr;?>,
                       <?php } ?>

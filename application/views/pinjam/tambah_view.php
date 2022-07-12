@@ -58,10 +58,10 @@
 											</td>
 										</tr>
 										<tr>
-											<td>Lama Peminjaman</td>
+											<td>Lama Peminjaman (hari)</td>
 											<td>:</td>
 											<td>
-												<input type="number" required placeholder="Lama Pinjam Contoh : 2 Hari (2)" name="lama" class="form-control">
+												<input type="number" required name="lama" class="form-control" value="7" readonly>
 											</td>
 										</tr>
 									</table>
@@ -149,9 +149,11 @@
 
 <script>
     var base_url = '<?= base_url();?>';
-    var tabel = null;
+    var tabelBuku = null;
+    var idAnggota;
+
     $(document).ready(function() {
-        tabel = $('#example1').DataTable({
+        tabelBuku = $('#example1').DataTable({
             "processing": true,
             "responsive":true,
             "serverSide": true,
@@ -159,7 +161,7 @@
             "order": [[ 0, 'desc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             "ajax":
             {
-                "url": "<?= base_url('data/data_buku');?>", // URL file untuk proses select datanya
+                "url": `<?= base_url('data/data_buku_pinjam/');?>${idAnggota}`, // URL file untuk proses select datanya
                 "type": "POST"
             },
             "deferRender": true,
@@ -202,6 +204,14 @@
             ],
         });
     });
+    
+
+    // const setIdAnggota = (id_anggota) => {
+    //   idAnggota = id_anggota;
+    //   console.log(id_anggota);
+    //   tabelBuku.ajax.reload();
+    // }
+
 </script>
 
 <script>
@@ -334,7 +344,7 @@ $(document).ready(function(){
                     "render": 
                     function( data, type, row, meta ) {
                         return `<button class="btn btn-primary pilih_anggota" id="Select_File1" data_id="${row.anggota_id}">
-									<i class="fa fa-check"> </i> Pilih
+									<i class="fa fa-check" onclick="setIdAnggota('${row.anggota_id}')"> </i> Pilih
 								</button>`;
                     }
                 },
@@ -345,6 +355,60 @@ $(document).ready(function(){
 
 <script>
 	$('#example3 tbody').on('click', '.pilih_anggota', function(){
+    idAnggota = $(this).attr("data_id");
+    tabelBuku.destroy();
+
+    tabelBuku = $('#example1').DataTable({
+            "processing": true,
+            "responsive":true,
+            "serverSide": true,
+            "ordering": true, // Set true agar bisa di sorting
+            "order": [[ 0, 'desc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+            "ajax":
+            {
+                "url": `<?= base_url('data/data_buku_pinjam/');?>${idAnggota}`, // URL file untuk proses select datanya
+                "type": "POST"
+            },
+            "deferRender": true,
+            "aLengthMenu": [[5, 10, 50],[ 5, 10, 50]], // Combobox Limit
+            "columns": [
+                {"data": 'id_buku',"sortable": false, 
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }  
+                },
+                { "data": "buku_id",
+                    "render": 
+                    function( data, type, row, meta ) {
+                        return `${row.buku_id}`;
+                    }
+                },
+                { "data": "isbn" },
+                { "data": "title" },
+                { "data": "penerbit" },  
+                { "data": "thn_buku" }, 
+                { "data": "buku_id",
+                    "render": 
+                    function( data, type, row, meta ) {
+                        return row.jml-row.dipinjam;
+                    }
+                },
+                { "data": "id_buku",
+                    "render": 
+                    function( data, type, row, meta ) {
+                        return `<a href="javascript:void(0)" class="btn btn-success btn-sm pilih_buku" 
+									id="Select_File2" data_id="${row.buku_id}">
+									<i class="fa fa-check"> </i> 
+								</a> 
+								<a href="${base_url}data/bukudetail/${row.id_buku}" 
+									target="_blank" title="Detail Buku"
+                                    class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>`;
+                        
+                    }
+                },
+            ],
+        });
+
 		document.getElementsByName('anggota_id')[0].value = $(this).attr("data_id");
 		$('#TableAnggota').modal('hide');
 		$.ajax({
