@@ -106,9 +106,9 @@ class Spk extends CI_Controller
       $list_all_data[$iteration - 1] = $list_all_data[$iteration - 2];
 
       foreach ($list_all_data[$iteration - 1] as $index => $item_data) {
-        $list_all_data[$iteration - 1][$index]['c1'] = sqrt(pow($item_data['stok'] - $c1[$iteration - 1]['stok'], 2) + pow($item_data['peminjam'] - $c1[$iteration - 1]['peminjam'], 2) + pow($item_data['pencarian'] - $c1[$iteration - 1]['pencarian'], 2));
-        $list_all_data[$iteration - 1][$index]['c2'] = sqrt(pow($item_data['stok'] - $c2[$iteration - 1]['stok'], 2) + pow($item_data['peminjam'] - $c2[$iteration - 1]['peminjam'], 2) + pow($item_data['pencarian'] - $c2[$iteration - 1]['pencarian'], 2));
-        $list_all_data[$iteration - 1][$index]['c3'] = sqrt(pow($item_data['stok'] - $c3[$iteration - 1]['stok'], 2) + pow($item_data['peminjam'] - $c3[$iteration - 1]['peminjam'], 2) + pow($item_data['pencarian'] - $c3[$iteration - 1]['pencarian'], 2));
+        $list_all_data[$iteration - 1][$index]['c1'] = sqrt(pow($item_data['stok'] - $c1[$iteration - 1]['stok'], 2)) + sqrt(pow($item_data['peminjam'] - $c1[$iteration - 1]['peminjam'], 2)) + sqrt(pow($item_data['pencarian'] - $c1[$iteration - 1]['pencarian'], 2));
+        $list_all_data[$iteration - 1][$index]['c2'] = sqrt(pow($item_data['stok'] - $c2[$iteration - 1]['stok'], 2)) + sqrt(pow($item_data['peminjam'] - $c2[$iteration - 1]['peminjam'], 2)) + sqrt(pow($item_data['pencarian'] - $c2[$iteration - 1]['pencarian'], 2));
+        $list_all_data[$iteration - 1][$index]['c3'] = sqrt(pow($item_data['stok'] - $c3[$iteration - 1]['stok'], 2)) + sqrt(pow($item_data['peminjam'] - $c3[$iteration - 1]['peminjam'], 2)) + sqrt(pow($item_data['pencarian'] - $c3[$iteration - 1]['pencarian'], 2));
         $list_all_data[$iteration - 1][$index]['jarak'] = min($list_all_data[$iteration - 1][$index]['c1'], $list_all_data[$iteration - 1][$index]['c2'], $list_all_data[$iteration - 1][$index]['c3']);
         if ($list_all_data[$iteration - 1][$index]['jarak'] == $list_all_data[$iteration - 1][$index]['c1']) {
           $all_data2[$index]['label'] = 'c1';
@@ -190,9 +190,9 @@ class Spk extends CI_Controller
     $data_c3 = [];
     $list_all_data[0] = $all_data;
     foreach ($list_all_data[0] as $index => $item_data) {
-      $list_all_data[0][$index]['c1'] = sqrt(pow($item_data['stok'] - $centeroid[0]['stok'], 2) + pow($item_data['peminjam'] - $centeroid[0]['peminjam'], 2) + pow($item_data['pencarian'] - $centeroid[0]['pencarian'], 2));
-      $list_all_data[0][$index]['c2'] = sqrt(pow($item_data['stok'] - $centeroid[1]['stok'], 2) + pow($item_data['peminjam'] - $centeroid[1]['peminjam'], 2) + pow($item_data['pencarian'] - $centeroid[1]['pencarian'], 2));
-      $list_all_data[0][$index]['c3'] = sqrt(pow($item_data['stok'] - $centeroid[2]['stok'], 2) + pow($item_data['peminjam'] - $centeroid[2]['peminjam'], 2) + pow($item_data['pencarian'] - $centeroid[2]['pencarian'], 2));
+      $list_all_data[0][$index]['c1'] = sqrt(pow($item_data['stok'] - $centeroid[0]['stok'], 2)) + sqrt(pow($item_data['peminjam'] - $centeroid[0]['peminjam'], 2)) + sqrt(pow($item_data['pencarian'] - $centeroid[0]['pencarian'], 2));
+      $list_all_data[0][$index]['c2'] = sqrt(pow($item_data['stok'] - $centeroid[1]['stok'], 2)) + sqrt(pow($item_data['peminjam'] - $centeroid[1]['peminjam'], 2)) + sqrt(pow($item_data['pencarian'] - $centeroid[1]['pencarian'], 2));
+      $list_all_data[0][$index]['c3'] = sqrt(pow($item_data['stok'] - $centeroid[2]['stok'], 2)) + sqrt(pow($item_data['peminjam'] - $centeroid[2]['peminjam'], 2)) + sqrt(pow($item_data['pencarian'] - $centeroid[2]['pencarian'], 2));
       $list_all_data[0][$index]['jarak'] = min($list_all_data[0][$index]['c1'], $list_all_data[0][$index]['c2'], $list_all_data[0][$index]['c3']);
       if ($list_all_data[0][$index]['jarak'] == $list_all_data[0][$index]['c1']) {
         $list_all_data[0][$index]['label'] = 'c1';
