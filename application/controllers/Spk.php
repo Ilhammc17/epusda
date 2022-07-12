@@ -243,12 +243,15 @@ class Spk extends CI_Controller
         $list_all_data[$iteration - 1][$index]['c3'] = sqrt(pow($item_data['peminjam'] - $c3[$iteration - 1]['peminjam'], 2)) + pow($item_data['stok'] - $c3[$iteration - 1]['stok'], 2) + pow($item_data['pencarian'] - $c3[$iteration - 1]['pencarian'], 2);
         $list_all_data[$iteration - 1][$index]['jarak'] = min($list_all_data[$iteration - 1][$index]['c1'], $list_all_data[$iteration - 1][$index]['c2'], $list_all_data[$iteration - 1][$index]['c3']);
         if ($list_all_data[$iteration - 1][$index]['jarak'] == $list_all_data[$iteration - 1][$index]['c1']) {
+          $list_all_data[$iteration - 1][$index]['label'] = 'c1';
           $all_data2[$index]['label'] = 'c1';
           array_push($data_c1, $all_data2[$index]);
         } else if ($list_all_data[$iteration - 1][$index]['jarak'] == $list_all_data[$iteration - 1][$index]['c2']) {
+          $list_all_data[$iteration - 1][$index]['label'] = 'c2';
           $all_data2[$index]['label'] = 'c2';
           array_push($data_c2, $all_data2[$index]);
         } else if ($list_all_data[$iteration - 1][$index]['jarak'] == $list_all_data[$iteration - 1][$index]['c3']) {
+          $list_all_data[$iteration - 1][$index]['label'] = 'c3';
           $all_data2[$index]['label'] = 'c3';
           array_push($data_c3, $all_data2[$index]);
         } else {
