@@ -50,7 +50,7 @@ class Dashboard extends CI_Controller {
 	public function data_pengunjung()
 	{
 		$query  = "SELECT * FROM  tbl_pengunjung";
-		$search = array('nama', 'created_at');
+		$search = array('nama', 'pekerjaan', 'jenis_kelamin', 'created_at');
 		$where  = null;
 		// $where  = array('nama_kategori' => 'Tutorial');
 		// jika memakai IS NULL pada where sql
@@ -60,27 +60,27 @@ class Dashboard extends CI_Controller {
 		echo $this->M_Datatables->get_tables_query($query,$search,$where,$isWhere);
 	}
 
-	public function pengunjung()
-	{
+	// public function pengunjung()
+	// {
 		
-		$this->form_validation->set_rules("nama", "Nama", "required");
-		if($this->form_validation->run() != false) {
+	// 	$this->form_validation->set_rules("nama", "Nama", "required");
+	// 	if($this->form_validation->run() != false) {
 		
-			$data = [
-				'anggota_id' => htmlspecialchars($this->input->post("anggota_id", TRUE) ,ENT_QUOTES),
-				'nama' => htmlspecialchars($this->input->post("nama", TRUE) ,ENT_QUOTES),
-				'created_at' => date('Y-m-d H:i:s'),
-				'tgl_masuk' => date('Y-m-d'),
-			];
+	// 		$data = [
+	// 			'anggota_id' => htmlspecialchars($this->input->post("anggota_id", TRUE) ,ENT_QUOTES),
+	// 			'nama' => htmlspecialchars($this->input->post("nama", TRUE) ,ENT_QUOTES),
+	// 			'created_at' => date('Y-m-d H:i:s'),
+	// 			'tgl_masuk' => date('Y-m-d'),
+	// 		];
 
-			$this->db->insert("tbl_pengunjung", $data);
-			$this->session->set_flashdata("success"," Berhasil Insert Data ! ");
-			redirect(base_url("dashboard/track"));
-		}else{
-			$this->session->set_flashdata("failed"," Gagal Insert Data ! ".validation_errors());
-			redirect(base_url("dashboard/track"));
-		}
-	}
+	// 		$this->db->insert("tbl_pengunjung", $data);
+	// 		$this->session->set_flashdata("success"," Berhasil Insert Data ! ");
+	// 		redirect(base_url("dashboard/track"));
+	// 	}else{
+	// 		$this->session->set_flashdata("failed"," Gagal Insert Data ! ".validation_errors());
+	// 		redirect(base_url("dashboard/track"));
+	// 	}
+	// }
 
 	public function delete()
 	{

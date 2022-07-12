@@ -93,13 +93,15 @@
                     <div class="panel-heading">
                         Data Pengunjung
                     </div>
-                    <div class="panel-body" style="text-align:center">
+                    <div class="panel-body">
                         <div class="table-responsive">
                             <table class="table table-striped" id="example">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
+                                        <th>Pekerjaan</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Tanggal Kunjungan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -137,6 +139,8 @@
                     }  
                 }, 
                 { "data": "nama" },  
+                { "data": "pekerjaan" }, 
+                { "data": "jenis_kelamin" }, 
                 { "data": "created_at" },  
                 { "data": "id",
                     "render": 

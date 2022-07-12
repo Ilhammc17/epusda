@@ -102,7 +102,7 @@
 														echo 'active';
 													} ?>">
 								<a href="<?php echo base_url("data/kategori"); ?>" class="cursor">
-									<span class="fa fa-tags"></span> Kategori
+									<span class="fa fa-tags"></span> Data Kategori
 
 								</a>
 							</li>
@@ -110,7 +110,7 @@
 														echo 'active';
 													} ?>">
 								<a href="<?php echo base_url("data/rak"); ?>" class="cursor">
-									<span class="fa fa-list"></span> Rak
+									<span class="fa fa-list"></span> Data Rak
 
 								</a>
 							</li>
@@ -118,7 +118,7 @@
 														echo 'active';
 													} ?>">
 								<a href="<?php echo base_url("data/sumber"); ?>" class="cursor">
-									<span class="fa fa-list"></span> Sumber
+									<span class="fa fa-list"></span> Data Sumber
 								</a>
 							</li>
 						</ul>
@@ -133,7 +133,7 @@
 				">
 						<a href="#">
 							<i class="fa fa-exchange"></i>
-							<span>Transaksi</span>
+							<span>Data Transaksi</span>
 							<span class="pull-right-container">
 								<i class="fa fa-angle-left pull-right"></i>
 							</span>
@@ -143,7 +143,7 @@
 														echo 'active';
 													} ?>">
 								<a href="<?php echo base_url("transaksi"); ?>" class="cursor">
-									<span class="fa fa-upload"></span> Peminjaman
+									<span class="fa fa-upload"></span> Data Peminjaman
 
 								</a>
 							</li>
@@ -151,7 +151,7 @@
 														echo 'active';
 													} ?>">
 								<a href="<?php echo base_url("transaksi/kembali"); ?>" class="cursor">
-									<span class="fa fa-download"></span> Dikembalikan
+									<span class="fa fa-download"></span> Data Pengembalian
 								</a>
 							</li>
 						</ul>
@@ -160,14 +160,14 @@
 												echo 'active';
 											} ?>">
 						<a href="<?php echo base_url("transaksi/denda"); ?>" class="cursor">
-							<i class="fa fa-money"></i> <span>Denda</span>
+							<i class="fa fa-money"></i> <span>Data Denda</span>
 
 						</a>
 					<li class="<?php if ($sidebar == 'spk') {
 												echo 'active';
 											} ?>">
 						<a href="<?php echo base_url("spk"); ?>" class="cursor">
-							<i class="fa fa-book"></i> <span>Pengadaan</span>
+							<i class="fa fa-book"></i> <span>Data Pengadaan</span>
 
 						</a>
 					</li>
