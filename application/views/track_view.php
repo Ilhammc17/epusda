@@ -52,11 +52,11 @@
                                 <div class="alert alert-success"><?= $this->session->success; ?></div>
                               <?php }
                             ?>
-                            <?php
+                            <!-- <?php
                               if ($this->session->failed) { ?>
                                 <div class="alert alert-danger"><?= $this->session->failed; ?></div>
                               <?php }
-                            ?>
+                            ?> -->
                             <div class="form-group">
                                 <input type="text" name="nama" autocomplete="off"
                                     class="form-control form-lg"  id="nama"

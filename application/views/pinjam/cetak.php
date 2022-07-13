@@ -86,7 +86,7 @@
                         $denda = $this->db->query("SELECT * FROM tbl_denda WHERE pinjam_id = '$pinjam_id'");
                         $total_denda = $denda->row();
             ?>
-            <tr bgcolor="skyblue">
+            <tr bgcolor="white">
                 <td><?= $no;?></td>
                 <td><?= $isi['pinjam_id'];?></td>
                 <td><?= $isi['anggota_id'];?></td>
@@ -138,12 +138,12 @@
                     ?>
                 </td>
             </tr>
-            <tr bgcolor="yellow">
+            <tr bgcolor="#4CAF50">
                 <td <?php if(!empty($this->input->get('sortir') == 'kembali'))	{?>colspan="9"<?php }else{?>colspan="8" <?php }?>>Data Buku :</td>
             </tr>
             <tr>
                 <td>No</td>
-                <td <?php if(!empty($this->input->get('sortir') == 'kembali'))	{?>colspan="5"<?php }else{?>colspan="4" <?php }?>>Title</td>
+                <td <?php if(!empty($this->input->get('sortir') == 'kembali'))	{?>colspan="5"<?php }else{?>colspan="4" <?php }?>>Judul Buku</td>
                 <td>Penerbit</td>
                 <td>Tahun</td>
                 <td>Jml</td>

@@ -125,7 +125,7 @@
                                 <th>Nama</th>
                                 <th>Pinjam</th>
                                 <th>Balik</th>
-                                <th style="width:10%">Status</th>
+                                <th style="width:10%">Status Buku</th>
                                 <th>Denda</th>
                                 <th>Aksi</th>
                             </tr>

@@ -208,14 +208,14 @@
 												echo 'active';
 											} ?>">
 						<a href="<?php echo base_url('user/edit/' . $this->session->userdata('ses_id')); ?>" class="cursor">
-							<i class="fa fa-user"></i> <span>Data Anggota</span>
+							<i class="fa fa-user"></i> <span>Profile Anggota</span>
 						</a>
 					</li>
-					<li class="">
+					<!-- <li class="">
 						<a href="<?php echo base_url('user/detail/' . $this->session->userdata('ses_id')); ?>" target="_blank" class="cursor">
 							<i class="fa fa-print"></i> <span>Cetak kartu Anggota</span>
 						</a>
-					</li>
+					</li> -->
 				<?php } ?>
 				<?php if ($this->session->userdata('level') == 'Superadmin') { ?>
 					<li class="<?= $sidebar === 'kelola_petugas' ? 'active' : ''; ?>">
@@ -244,7 +244,7 @@
 				</li>
         <li class="<?= $this->uri->uri_string() == 'dashboard/track' ? 'active' : ''; ?>">
           <a href="<?= base_url('track_pengunjung'); ?>">
-            <i class="fa fa-user-plus"></i> <span> Track Pengunjung</span>
+            <i class="fa fa-user-plus"></i> <span> Buku Tamu Pengunjung</span>
           </a>
         </li>
 				<!-- <li class="<?php if ($sidebar == 'register') {

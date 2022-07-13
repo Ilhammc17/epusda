@@ -104,7 +104,7 @@
                                         <th style="width:10%;">Buku ID</th>
                                         <th>No. Kelas</th>
                                         <th>ISBN</th>
-                                        <th>Title</th>
+                                        <th>Judul Buku</th>
                                         <th>Kategori</th>
                                         <th>Nama Subkategori</th>
                                         <th>Pengarang</th>

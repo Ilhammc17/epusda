@@ -112,12 +112,15 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>No Pinjam</th>
+								<th>No Pinjam</th>
+								<th>No Kelas</th>
+                                <th>Judul Buku</th>
+                                <th>Kategori</th>
                                 <th>ID Anggota</th>
                                 <th>Nama</th>
                                 <th>Pinjam</th>
                                 <th>Balik</th>
-                                <th style="width:10%">Status</th>
+                                <th style="width:10%">Status Buku</th>
                                 <th>Kembali</th>
                                 <th>Denda</th>
                                 <th>Aksi</th>
@@ -137,6 +140,9 @@
                             <tr>
                                 <td><?= $no;?></td>
                                 <td><?= $isi['pinjam_id'];?></td>
+								<td><?= $isi['no_kelas'];?></td>
+                                <td><?= $isi['title'];?></td>
+                                <td><?= $isi['nama_kategori'];?></td>
                                 <td><?= $isi['anggota_id'];?></td>
                                 <td><?= $ang->nama ?? '-';?></td>
                                 <td><?= $isi['tgl_pinjam'];?></td>
