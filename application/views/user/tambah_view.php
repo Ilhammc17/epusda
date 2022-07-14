@@ -2,11 +2,11 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      <i class="fa fa-plus" style="color:green"> </i>  Tambah User
+      <i class="fa fa-plus" style="color:green"> </i>  Tambah Anggota
     </h1>
     <ol class="breadcrumb">
 			<li><a href="<?php echo base_url('dashboard');?>"><i class="fa fa-dashboard"></i>&nbsp; Dashboard</a></li>
-			<li class="active"><i class="fa fa-plus"></i>&nbsp; Tambah User</li>
+			<li class="active"><i class="fa fa-plus"></i>&nbsp; Tambah Anggota</li>
     </ol>
   </section>
   <section class="content">
@@ -30,7 +30,7 @@
                                     <input type="text" class="form-control" name="nim" required="required" placeholder="NIK" onkeypress="return onlyNumber(event)">
                                 </div>
                                 <div class="form-group">
-                                    <label>Nama Pengguna</label>
+                                    <label>Nama Anggota</label>
                                     <input type="text" class="form-control" name="nama" required="required" placeholder="Nama Pengguna">
                                 </div>
                                 <div class="form-group">

@@ -2,7 +2,7 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      <i class="fa fa-edit" style="color:green"> </i>  Daftar Data User
+      <i class="fa fa-edit" style="color:green"> </i>  Daftar Data Anggota
     </h1>
     <ol class="breadcrumb">
 			<li><a href="<?php echo base_url('dashboard');?>"><i class="fa fa-dashboard"></i>&nbsp; Dashboard</a></li>
@@ -15,7 +15,7 @@
 	    <div class="col-md-12">
 	        <div class="box box-primary">
                 <div class="box-header with-border">
-                    <a href="user/tambah" class="btn btn-primary"><i class="fa fa-plus"> </i> Tambah User</a>
+                    <a href="user/tambah" class="btn btn-primary"><i class="fa fa-plus"> </i> Tambah Anggota</a>
                 </div>
 				<!-- /.box-header -->
 				<div class="box-body">

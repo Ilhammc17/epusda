@@ -15,8 +15,8 @@
     <div class="col-md-12">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <a href="<?= base_url(); ?> qkelola_petugas/tambah"><button class="btn btn-primary" style="margin-top:0.5pc;">
-            <i class="fa fa-plus"> </i> Tambah Buku</button>
+          <a href="<?= base_url(); ?>kelola_petugas/tambah"><button class="btn btn-primary" style="margin-top:0.5pc;">
+            <i class="fa fa-plus"> </i> Tambah Petugas</button>
           </a>
         </div>
       <!-- /.box-header -->

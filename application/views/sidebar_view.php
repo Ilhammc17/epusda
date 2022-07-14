@@ -51,7 +51,7 @@
 												echo 'active';
 											} ?>">
 						<a href="<?php echo base_url('user'); ?>" class="cursor">
-							<i class="fa fa-user"></i> <span>Data Pengguna</span></a>
+							<i class="fa fa-user"></i> <span>Data Anggota</span></a>
 					</li>
 					<li class="treeview <?php if ($sidebar == 'kategori') {
 																echo 'active';
@@ -220,7 +220,7 @@
 				<?php if ($this->session->userdata('level') == 'Superadmin') { ?>
 					<li class="<?= $sidebar === 'kelola_petugas' ? 'active' : ''; ?>">
 						<a href="<?= base_url(); ?>kelola_petugas" class="cursor">
-							<i class="fa fa-upload"></i> <span>Kelola Petugas</span>
+							<i class="fa fa-user"></i> <span>Kelola Petugas</span>
 						</a>
 					</li>
 				<?php } ?>
