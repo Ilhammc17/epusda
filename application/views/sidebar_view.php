@@ -163,14 +163,6 @@
 							<i class="fa fa-money"></i> <span>Data Denda</span>
 
 						</a>
-					<li class="<?php if ($sidebar == 'spk') {
-												echo 'active';
-											} ?>">
-						<a href="<?php echo base_url("spk"); ?>" class="cursor">
-							<i class="fa fa-book"></i> <span>Data Pengadaan</span>
-
-						</a>
-					</li>
 					<li class="<?php if ($sidebar == 'atur') {
 												echo 'active';
 											} ?>">
@@ -179,6 +171,160 @@
 						</a>
 					</li>
 				<?php } ?>
+
+<!-- <---- Superadmin -->
+
+				<?php if ($this->session->userdata('level') == 'Superadmin') { ?>
+					<!-- sidebar menu: : style can be found in sidebar.less -->
+					<li class="header">MAIN NAVIGATION</li>
+					<li class="<?php if ($sidebar == 'dashboard') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url('dashboard'); ?>">
+							<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+						</a>
+					</li>
+					<li class="<?php if ($this->uri->uri_string() == 'dashboard/data') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url('dashboard/data'); ?>">
+							<i class="fa fa-users"></i> <span> Data Pengunjung</span>
+						</a>
+					</li>
+					<li class="<?php if ($sidebar == 'user') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url('user'); ?>" class="cursor">
+							<i class="fa fa-user"></i> <span>Data Anggota</span></a>
+					</li>
+					<li class="treeview <?php if ($sidebar == 'kategori') {
+																echo 'active';
+															} ?>
+				<?php if ($sidebar == 'rak') {
+						echo 'active';
+					} ?>
+				<?php if ($sidebar == 'buku_data') {
+						echo 'active';
+					} ?>
+				<?php if ($sidebar == 'buku') {
+						echo 'active';
+					} ?>
+				<?php if ($sidebar == 'jurusan') {
+						echo 'active';
+					} ?>
+				<?php if ($sidebar == 'sumber') {
+						echo 'active';
+					} ?>">
+						<a href="#">
+							<i class="fa fa-pencil-square"></i>
+							<span>Data </span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-left pull-right"></i>
+							</span>
+						</a>
+						<ul class="treeview-menu">
+							<li class="<?php if ($sidebar == 'buku_data') {
+														echo 'active';
+													} ?>
+						<?php if ($sidebar == 'buku') {
+							echo 'active';
+						} ?>">
+								<a href="<?php echo base_url("data"); ?>" class="cursor">
+									<span class="fa fa-book"></span> Data Buku
+
+								</a>
+							</li>
+							<li class=" <?php if ($sidebar == 'jurusan') {
+														echo 'active';
+													} ?>">
+								<a href="<?php echo base_url("data/jurusan"); ?>" class="cursor">
+									<span class="fa fa-cube"></span> Data Status
+
+								</a>
+							</li>
+							<li class=" <?php if ($sidebar == 'kategori') {
+														echo 'active';
+													} ?>">
+								<a href="<?php echo base_url("data/kategori"); ?>" class="cursor">
+									<span class="fa fa-tags"></span> Data Kategori
+
+								</a>
+							</li>
+							<li class=" <?php if ($sidebar == 'rak') {
+														echo 'active';
+													} ?>">
+								<a href="<?php echo base_url("data/rak"); ?>" class="cursor">
+									<span class="fa fa-list"></span> Data Rak
+
+								</a>
+							</li>
+							<li class=" <?php if ($sidebar == 'sumber') {
+														echo 'active';
+													} ?>">
+								<a href="<?php echo base_url("data/sumber"); ?>" class="cursor">
+									<span class="fa fa-list"></span> Data Sumber
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="treeview 
+				<?php if ($sidebar == 'transaksi') {
+						echo 'active';
+					} ?>
+				<?php if ($sidebar == 'kembali') {
+						echo 'active';
+					} ?>
+				">
+						<a href="#">
+							<i class="fa fa-exchange"></i>
+							<span>Data Transaksi</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-left pull-right"></i>
+							</span>
+						</a>
+						<ul class="treeview-menu">
+							<li class="<?php if ($sidebar == 'transaksi') {
+														echo 'active';
+													} ?>">
+								<a href="<?php echo base_url("transaksi"); ?>" class="cursor">
+									<span class="fa fa-upload"></span> Data Peminjaman
+
+								</a>
+							</li>
+							<li class="<?php if ($sidebar == 'kembali') {
+														echo 'active';
+													} ?>">
+								<a href="<?php echo base_url("transaksi/kembali"); ?>" class="cursor">
+									<span class="fa fa-download"></span> Data Pengembalian
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="<?php if ($sidebar == 'spk') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url("spk"); ?>" class="cursor">
+							<i class="fa fa-book"></i> <span>Data Pengadaan</span>
+						</a>
+					</li>
+					<li class="<?php if ($sidebar == 'denda') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url("transaksi/denda"); ?>" class="cursor">
+							<i class="fa fa-money"></i> <span>Data Denda</span>
+
+						</a>
+					<li class="<?php if ($sidebar == 'atur') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url('dashboard/atur'); ?>">
+							<i class="fa fa-cogs"></i> <span>Atur Perpustakaan</span>
+						</a>
+					</li>
+				<?php } ?>
+
+				<!-- <---- Superadmin -->
+
 				<?php if ($this->session->userdata('level') == 'Anggota') { ?>
 					<li class="<?php if ($sidebar == 'transaksi') {
 												echo 'active';
@@ -217,10 +363,20 @@
 						</a>
 					</li> -->
 				<?php } ?>
-				<?php if ($this->session->userdata('level') == 'Superadmin') { ?>
-					<li class="<?= $sidebar === 'kelola_petugas' ? 'active' : ''; ?>">
-						<a href="<?= base_url(); ?>kelola_petugas" class="cursor">
-							<i class="fa fa-user"></i> <span>Kelola Petugas</span>
+				<?php if ($this->session->userdata('level') == 'Pengadaan') { ?>
+					<li class="header">MAIN NAVIGATION</li>
+					<li class="<?php if ($sidebar == 'dashboard') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url('dashboard'); ?>">
+							<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+						</a>
+					</li>
+					<li class="<?php if ($sidebar == 'spk') {
+												echo 'active';
+											} ?>">
+						<a href="<?php echo base_url("spk"); ?>" class="cursor">
+							<i class="fa fa-book"></i> <span>Data Pengadaan</span>
 						</a>
 					</li>
 				<?php } ?>

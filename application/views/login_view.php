@@ -35,7 +35,7 @@
     </style>
   </head>
 <body class="hold-transition login-page" style="overflow-y: hidden;background:url(
-	'<?php echo base_url('assets/image/Buku-2.jpg');?>')no-repeat;background-size:100% 100%; ">
+	'<?php echo base_url('assets/image/subang.jpg');?>')no-repeat;background-size:100% 100%; ">
 <!-- <div class="login-box">
   <?=alert_bs();?>
   
@@ -77,22 +77,21 @@
           <div class="mx-auto col-lg-4">
             <div class="auth-form-light text-center py-5 px-4 px-sm-5">
                 <div class="brand-logo">
-                <img src="<?= base_url(''); ?>" heigth="1000" alt="logo">
+                <img src="<?= base_url('assets/image/logologin.png'); ?>" heigth="1000" alt="logo">
               </div>
               <div>Selamat Datang di</div>
               <div class="wrapper">
               <div class="typingdemo">Sistem Perpustakaan Subang</div>
               </div>
-              <form class="pt-3" action="<?= base_url('login/auth');?>" method="POST" enctype="multipart/form-data">
+              <form class="pt-3" action="<?= base_url('login/auth');?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Username" id="user" name="user" required="required" autocomplete="off">
+                  <input type="text" name="nip" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" id="pass" name="pass" required="required" autocomplete="off">
+                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                 </div>
                 <div class="mt-3">
-                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" id="loding">SIGN IN</button>
-                  <a href="<?= base_url();?>" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn">Back</a>
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
                 </div>
                 
               </form>

@@ -440,8 +440,16 @@ class Transaksi extends CI_Controller {
 
 	public function dendaproses()
 	{
-		if(!empty($this->input->post('tambah')))
-		{
+		if(!empty($this->input->post('tambah'))){
+			$this->form_validation->set_rules('harga', 'harga', 'required', ['required' => 'Harga Denda Harus Diisi!']);
+			
+			if ($this->form_validation->run() == FALSE) {
+				$this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-warning">
+            <p>' . validation_errors() . '</p>
+          </div></div>');
+		} else {
+			$dendaUnique  = $this->db->like('denda', $this->input->post('harga_denda'))->get('tbl_denda');
+			if ($dendaUnique->num_rows() <= 0) {
 			$post= $this->input->post();
 			$data = array(
 				'harga_denda'=>$post['harga'],
@@ -451,11 +459,18 @@ class Transaksi extends CI_Controller {
 
 			$this->db->insert('tbl_biaya_denda', $data);
 			
-			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
-			<p> Tambah  Harga Denda  Sukses !</p>
+			$this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
+			<p> Tambah Harga Denda Sukses!</p>
 			</div></div>');
-			redirect(base_url('transaksi/denda')); 
-		}
+					  redirect(base_url('data/rak'));
+				  } else {
+					  $this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-warning">
+				<p>Harga Denda sudah ada!</p>
+			  </div></div>');
+				  }
+			  }
+			  redirect($_SERVER['HTTP_REFERER']);
+		  }
 
 		if(!empty($this->input->post('edit')))
 		{
