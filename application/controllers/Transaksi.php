@@ -272,7 +272,6 @@ class Transaksi extends CI_Controller {
 	public function prosespinjam()
 	{
 		$post = $this->input->post();
-
 		if(!empty($post['tambah']))
 		{
 
@@ -280,42 +279,51 @@ class Transaksi extends CI_Controller {
 			$tgl2 = date('Y-m-d', strtotime('+'.$post['lama'].' days', strtotime($tgl)));
 			$hasil_cart = $this->db->query("SELECT * FROM tbl_keranjang WHERE login_id = ?",[$this->session->userdata('ses_id')])
 							->result_array();
-			foreach($hasil_cart as $isi)
-			{
-				$id = $isi['kode_buku'];
-				$data = array(
-					'pinjam_id' => htmlentities($post['nopinjam']), 
-					'anggota_id' => htmlentities($post['anggota_id']), 
-					'buku_id' => $id, 
-					'status' => 'Dipinjam', 
-					'jml' => $isi['jml'],
-					'tgl_pinjam' => htmlentities($post['tgl']), 
-					'lama_pinjam' => htmlentities($post['lama']), 
-					'tgl_balik'  => $tgl2, 
-					'tgl_kembali'  => '0',
-					'periode'	=> date('m-Y')
-				);
-				$this->db->insert('tbl_pinjam',$data);
-				$dd = $this->db->query("SELECT sum(jml) as jml FROM tbl_pinjam WHERE buku_id= '$id' AND status = 'Dipinjam'");
-				$jml = $dd->row();
-				$data_update[] = array(
-					'buku_id' => $id,
-					'dipinjam' => $jml->jml
-				);
-			}
-			$total_array = count($data);
-			if($total_array != 0)
-			{
-				// $this->db->insert_batch('tbl_pinjam',$data);
-				$this->db->update_batch('tbl_buku',$data_update,'buku_id');
-				unset_cart();
-			}
-
-			$this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
-								<p> Tambah Pinjam Buku Sukses !</p>
-							</div></div>');
-
-			redirect(base_url('transaksi')); 
+      
+      if ($hasil_cart) {
+        foreach($hasil_cart as $isi)
+        {
+          $id = $isi['kode_buku'];
+          $data = array(
+            'pinjam_id' => htmlentities($post['nopinjam']), 
+            'anggota_id' => htmlentities($post['anggota_id']), 
+            'buku_id' => $id, 
+            'status' => 'Dipinjam', 
+            'jml' => $isi['jml'],
+            'tgl_pinjam' => htmlentities($post['tgl']), 
+            'lama_pinjam' => htmlentities($post['lama']), 
+            'tgl_balik'  => $tgl2, 
+            'tgl_kembali'  => '0',
+            'periode'	=> date('m-Y')
+          );
+          $this->db->insert('tbl_pinjam',$data);
+          $dd = $this->db->query("SELECT sum(jml) as jml FROM tbl_pinjam WHERE buku_id= '$id' AND status = 'Dipinjam'");
+          $jml = $dd->row();
+          $data_update[] = array(
+            'buku_id' => $id,
+            'dipinjam' => $jml->jml
+          );
+        }
+        $total_array = count($data);
+        if($total_array != 0)
+        {
+          // $this->db->insert_batch('tbl_pinjam',$data);
+          $this->db->update_batch('tbl_buku',$data_update,'buku_id');
+          unset_cart();
+        }
+  
+        $this->session->set_flashdata('pesan','<div id="notifikasi"><div class="alert alert-success">
+                  <p> Tambah Pinjam Buku Sukses !</p>
+                </div></div>');
+  
+        redirect(base_url('transaksi'));
+      } else {
+        $this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-warning">
+          <p>Pilih buku terlebih dahulu!</p>
+          </div></div>'
+        );
+        redirect($_SERVER['HTTP_REFERER']);
+      }
 		}
 
 		if($this->input->get('pinjam_id'))
