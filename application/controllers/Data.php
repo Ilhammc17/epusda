@@ -246,80 +246,100 @@ class Data extends CI_Controller
 
 		// tambah aksi form proses buku
 		if (!empty($this->input->post('tambah'))) {
-			$post = $this->input->post();
-			$buku_id = $this->M_Admin->buat_kode('tbl_buku', 'BK', 'id_buku', 'ORDER BY id_buku DESC LIMIT 1');
-			$data = array(
-				'buku_id' => $buku_id,
-				'id_kategori' => htmlentities($post['kategori']),
-				'subkategori_id'	=> htmlentities($post['subkategori_id']),
-				'id_rak' => htmlentities($post['rak']),
-				'isbn' => htmlentities($post['isbn']),
-				'title'  => htmlentities($post['title']),
-				'pengarang' => htmlentities($post['pengarang']),
-				'penerbit' => htmlentities($post['penerbit']),
-				'sumber_id' => htmlentities($post['sumber_id']),
-				'thn_buku' => htmlentities($post['thn']),
-				'isi' => $this->input->post('ket'),
-				'jml' => htmlentities($post['jml']),
-				'tgl_masuk' => date('Y-m-d H:i:s')
-			);
-
-			if (!empty($_FILES['gambar']['name'])) {
-				// setting konfigurasi upload
-				$config['upload_path'] = './assets/image/buku/';
-				$config['allowed_types'] = 'gif|jpg|jpeg|png';
-				$config['encrypt_name'] = TRUE; //nama yang terupload nantinya
-				// load library upload
-				$this->load->library('upload', $config);
-				$this->upload->initialize($config);
-
-				if ($this->upload->do_upload('gambar')) {
-					$this->upload->data();
-					$file1 = array('upload_data' => $this->upload->data());
-					$this->db->set('sampul', $file1['upload_data']['file_name']);
-				} else {
-					$this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
-							<p> Edit Buku Gagal !</p>
-						</div></div>');
-					redirect(base_url('data'));
-				}
-			}
-
-			if (!empty($_FILES['lampiran']['name'])) {
-				// setting konfigurasi upload
-				$config['upload_path'] = './assets/image/buku/';
-				$config['allowed_types'] = 'pdf';
-				$config['encrypt_name'] = TRUE; //nama yang terupload nantinya
-				// load library upload
-				$this->load->library('upload', $config);
-				$this->upload->initialize($config);
-				// script uplaod file kedua
-				if ($this->upload->do_upload('lampiran')) {
-					$this->upload->data();
-					$file2 = array('upload_data' => $this->upload->data());
-					$this->db->set('lampiran', $file2['upload_data']['file_name']);
-				} else {
-
-					$this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
-							<p> Edit Buku Gagal !</p>
-						</div></div>');
-					redirect(base_url('data'));
-				}
-			}
-
-			$this->db->insert('tbl_buku', $data);
-
-			foreach ($this->input->post('pengarang_tambahan') as $key) {
-				$this->db->insert('pengarang_tambahan', [
-					'buku_id'					=> $buku_id,
-					'nama_pengarang_tambahan'	=> $key,
-				]);
-			}
-
-			$this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
-			<p> Tambah Buku Sukses !</p>
-			</div></div>');
-			redirect(base_url('data'));
+      $this->form_validation->set_rules('kategori', 'Kategori', 'required');
+      $this->form_validation->set_rules('subkategori_id', 'Sub Kategori', 'required');
+      $this->form_validation->set_rules('sumber_id', 'Sumber', 'required');
+      $this->form_validation->set_rules('title', 'Title', 'required');
+      $this->form_validation->set_rules('pengarang', 'Pengarang', 'required');
+      $this->form_validation->set_rules('rak', 'Rak', 'required');
+      $this->form_validation->set_rules('isbn', 'ISBN', 'required');
+      $this->form_validation->set_rules('tempat_terbit', 'Tempat Terbit', 'required');
+      $this->form_validation->set_rules('penerbit', 'Penerbit', 'required');
+      $this->form_validation->set_rules('thn', 'Tahun', 'required');
+      $this->form_validation->set_rules('jml', 'Jumlah', 'required');
+      $this->form_validation->set_rules('ket', 'Keterangan', 'required');
+  
+      if ($this->form_validation->run() !== FALSE) {$post = $this->input->post();
+        $buku_id = $this->M_Admin->buat_kode('tbl_buku', 'BK', 'id_buku', 'ORDER BY id_buku DESC LIMIT 1');
+        $data = array(
+          'buku_id' => $buku_id,
+          'id_kategori' => htmlentities($post['kategori']),
+          'subkategori_id'	=> htmlentities($post['subkategori_id']),
+          'id_rak' => htmlentities($post['rak']),
+          'isbn' => htmlentities($post['isbn']),
+          'title'  => htmlentities($post['title']),
+          'pengarang' => htmlentities($post['pengarang']),
+          'penerbit' => htmlentities($post['penerbit']),
+          'sumber_id' => htmlentities($post['sumber_id']),
+          'thn_buku' => htmlentities($post['thn']),
+          'isi' => $this->input->post('ket'),
+          'jml' => htmlentities($post['jml']),
+          'tgl_masuk' => date('Y-m-d H:i:s')
+        );
+  
+        if (!empty($_FILES['gambar']['name'])) {
+          // setting konfigurasi upload
+          $config['upload_path'] = './assets/image/buku/';
+          $config['allowed_types'] = 'gif|jpg|jpeg|png';
+          $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
+          // load library upload
+          $this->load->library('upload', $config);
+          $this->upload->initialize($config);
+  
+          if ($this->upload->do_upload('gambar')) {
+            $this->upload->data();
+            $file1 = array('upload_data' => $this->upload->data());
+            $this->db->set('sampul', $file1['upload_data']['file_name']);
+          } else {
+            $this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
+                <p> Edit Buku Gagal !</p>
+              </div></div>');
+            redirect(base_url('data'));
+          }
+        }
+  
+        if (!empty($_FILES['lampiran']['name'])) {
+          // setting konfigurasi upload
+          $config['upload_path'] = './assets/image/buku/';
+          $config['allowed_types'] = 'pdf';
+          $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
+          // load library upload
+          $this->load->library('upload', $config);
+          $this->upload->initialize($config);
+          // script uplaod file kedua
+          if ($this->upload->do_upload('lampiran')) {
+            $this->upload->data();
+            $file2 = array('upload_data' => $this->upload->data());
+            $this->db->set('lampiran', $file2['upload_data']['file_name']);
+          } else {
+  
+            $this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
+                <p> Edit Buku Gagal !</p>
+              </div></div>');
+            redirect(base_url('data'));
+          }
+        }
+  
+        $this->db->insert('tbl_buku', $data);
+  
+        foreach ($this->input->post('pengarang_tambahan') as $key) {
+          $this->db->insert('pengarang_tambahan', [
+            'buku_id'					=> $buku_id,
+            'nama_pengarang_tambahan'	=> $key,
+          ]);
+        }
+  
+        $this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
+        <p> Tambah Buku Sukses !</p>
+        </div></div>');
+        redirect(base_url('data'));
+      } else {
+        $this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-warning">
+          <p>' . validation_errors() . '</p>
+          </div></div>'
+        );
+        redirect($_SERVER['HTTP_REFERER']);
+      }
 		}
 
 		// edit aksi form proses buku

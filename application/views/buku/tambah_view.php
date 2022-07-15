@@ -10,6 +10,7 @@
     </ol>
   </section>
   <section class="content">
+	<?php if(!empty($this->session->flashdata())){ echo $this->session->flashdata('pesan');}?>
 	<div class="row">
 	    <div class="col-md-12">
 	        <div class="box box-primary">
