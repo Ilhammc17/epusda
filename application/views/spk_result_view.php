@@ -125,7 +125,7 @@
                     <td><?= $value['pencarian'] ?></td>
                     <td><?= $value['stok_per_buku'] ?></td>
                     <td><?= $value['judul_buku'] ?></td>
-                    <td>Buku dengan subkategori tersebut adalah buku yang sangat diminati, karena memiliki jumlah penncarian dan jumlah peminjaman lebih banyak dari subkategori yang lainnya maka dari itu buku dengan subkategori ini menjadi salah satu rekomendasi buku yang akan di adakan di pengadaan !</td>
+                    <td>Buku dengan kategori & subkategori tersebut adalah buku yang sangat diminati, karena berdasarkan total pencarian buku dan total peminjaman buku tersebut lebih banyak dibandingkan stok buku yang tersedia sehingga buku ini adalah salah satu rekomendasi buku yang akan di adakan di pengadaan !</td>
                   </tr>
                 <?php } ?>
               <?php } else { ?>

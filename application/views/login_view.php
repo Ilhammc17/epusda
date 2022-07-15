@@ -85,13 +85,14 @@
               </div>
               <form class="pt-3" action="<?= base_url('login/auth');?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                  <input type="text" name="nip" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="text" name="user" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
                 </div>
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" name="pass" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
                 </div>
                 <div class="mt-3">
                   <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">SIGN IN</button>
+                  <a href="<?= base_url();?>" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn">Back</a>
                 </div>
                 
               </form>
