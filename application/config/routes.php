@@ -31,3 +31,5 @@ $route['kelola_petugas/tambah']['post']       = 'PetugasController/store';
 $route['kelola_petugas/edit/(:any)']['get']   = 'PetugasController/edit/$1';
 $route['kelola_petugas/edit/(:any)']['post']  = 'PetugasController/update/$1';
 $route['kelola_petugas/delete/(:any)']['get'] = 'PetugasController/destroy/$1';
+
+$route['pengunjung/(:any)']['get'] = 'Dashboard/exportPengunjung/$1';

@@ -139,4 +139,33 @@ class Dashboard extends CI_Controller {
 		$this->session->set_flashdata("success"," Berhasil Update Data ! ");
 		redirect(base_url('dashboard/atur')); 
 	}
+
+  public function exportPengunjung($tipe)
+  {
+    $data['pengunjung'] = $this->db->get('tbl_pengunjung')->result_array();
+    switch ($tipe) {
+      case 'cetak':
+        $this->load->library('pdfgenerator');
+    
+        $paper              = 'A4';
+        $orientation        = "landscape";
+        $file_pdf = 'Laporan-Pengunjung-';
+    
+        $html = $this->load->view('cetakPengunjung', $data, true);
+    
+        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+        break;
+      
+      case 'excel':
+        $file_pdf = 'Laporan-Pengunjung-';
+        header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header("Content-Disposition: attachment; filename=".$file_pdf.".xls");
+        $this->load->view('cetakPengunjung', $data);
+        break;
+      
+      default:
+        # code...
+        break;
+    }
+  }
 }

@@ -94,6 +94,9 @@
                         Data Pengunjung
                     </div>
                     <div class="panel-body">
+                      <a href="<?= base_url('pengunjung');?>/excel" class="btn btn-info"><i class="fa fa-download"></i>
+                      Excel</a>
+                      <a href="<?= base_url('pengunjung');?>/cetak" target="_blank" class="btn btn-warning btn-md"><i class="fa fa-print"></i> Print </a>
                         <div class="table-responsive">
                             <table class="table table-striped" id="example">
                                 <thead>

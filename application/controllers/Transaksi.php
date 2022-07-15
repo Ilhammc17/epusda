@@ -206,7 +206,7 @@ class Transaksi extends CI_Controller {
 		}
 
 		// fungsi header dengan mengirimkan raw data excel
-		header("Content-type: application/vnd-ms-excel");
+    header("Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 		// membuat nama file ekspor "export-to-excel.xls"
 		header("Content-Disposition: attachment; filename=".$file_pdf.".xls");
   
