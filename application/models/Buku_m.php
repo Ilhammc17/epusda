@@ -30,7 +30,7 @@ class Buku_m extends Base_m
     FROM tbl_buku
     RIGHT JOIN tbl_subkategori ON tbl_subkategori.id_subkategori  = tbl_buku.subkategori_id 
     JOIN tbl_kategori ON tbl_kategori.id_kategori = tbl_buku.id_kategori 
-    GROUP BY tbl_subkategori.id_subkategori LIMIT 3;");
+    GROUP BY tbl_subkategori.id_subkategori ORDER BY peminjam DESC, pencarian DESC, stok ASC LIMIT 3;");
   }
 
   public function get_book_spk_three_where_from_year($year)
@@ -39,7 +39,7 @@ class Buku_m extends Base_m
     FROM tbl_buku
     RIGHT JOIN tbl_subkategori ON tbl_subkategori.id_subkategori  = tbl_buku.subkategori_id 
     JOIN tbl_kategori ON tbl_kategori.id_kategori = tbl_buku.id_kategori 
-    GROUP BY tbl_subkategori.id_subkategori LIMIT 3;");
+    GROUP BY tbl_subkategori.id_subkategori ORDER BY peminjam DESC, pencarian DESC, stok ASC  LIMIT 3;");
   }
 
   // Example
