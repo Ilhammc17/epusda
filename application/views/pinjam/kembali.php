@@ -168,6 +168,10 @@
 									<td>:</td>
 									<td>
 									<?php
+										// $this->db->where('pinjam_id',$pinjam->pinjam_id);
+										// $this->db->where('buku_id','BK0069');
+										// $pin = $this->db->get('tbl_pinjam')->result_array();
+										
 										$pin = $this->M_Admin->get_tableid('tbl_pinjam','pinjam_id',$pinjam->pinjam_id);
 										$no =1;
 										foreach($pin as $isi)
@@ -311,6 +315,10 @@
 			<td>:</td>
 			<td>
 			<?php
+				// $this->db->where('pinjam_id',$pinjam->pinjam_id);
+				// $this->db->where('buku_id','BK0069');
+				// $pin = $this->db->get('tbl_pinjam')->result_array();
+
 				$pin = $this->M_Admin->get_tableid('tbl_pinjam','pinjam_id',$pinjam->pinjam_id);
 				$no =1;
 				foreach($pin as $isi)

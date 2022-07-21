@@ -28,7 +28,7 @@
 
             <?php foreach ($list_all_data as $index => $value) { ?>
 
-              Centeroid <?= $index + 1 ?>
+              Centeroid <?= $index + 0 ?>
               <table class="centeroid table table-striped">
                 <tr>
                   <td>C1</td>
@@ -52,18 +52,19 @@
 
               <br>
 
-              Iteration <?= $index + 1 ?>
+              Iteration <?= $index + 0 ?>
               <table class="iteration table table-striped">
                 <tr>
                   <th>No</th>
-                  <th>Klasifikasi</th>
-                  <th>Sub Klasifikasi</th>
+                  <th>Kategori</th>
+                  <th>Sub Kategori</th>
+                  <th>Judul Buku</th>
                   <th>Banyak Peminjam</th>
                   <th>Banyak Dicari</th>
                   <th>Stok</th>
-                  <th>Sangat Diminati (C1)</th>
-                  <th>Diminati (C2)</th>
-                  <th>Tidak Diminati (C3)</th>
+                  <th>Sangat Perlu diadakan (C1)</th>
+                  <th>Perlu diadakan (C2)</th>
+                  <th>Tidak Perlu diadakan (C3)</th>
                   <th>Jarak Terdekat</th>
                 </tr>
                 <?php $no = 1;
@@ -72,6 +73,7 @@
                     <td><?= $no++ ?></td>
                     <td><?= $value2['nama_kategori'] ?></td>
                     <td><?= $value2['nama_subkategori'] ?></td>
+                    <td><?= $value2['title'] ?></td>
                     <td><?= $value2['peminjam'] ?></td>
                     <td><?= $value2['pencarian'] ?></td>
                     <td><?= $value2['stok'] ?></td>
@@ -82,7 +84,7 @@
                   </tr>
                 <?php } ?>
                 <tr>
-                  <td colspan="3">Total</td>
+                  <td colspan="4">Total</td>
                   <td><?= array_sum(array_column($value, 'peminjam')) ?></td>
                   <td><?= array_sum(array_column($value, 'pencarian')) ?></td>
                   <td><?= array_sum(array_column($value, 'stok')) ?></td>
@@ -101,17 +103,18 @@
             <table class="iteration table table-striped">
               <tr>
                 <th colspan="8">
-                  Hasil Cluster 1 (Sangat Diminati)
+                  Hasil Cluster 1 (Sangat Perlu diadakan)
                 </th>
               </tr>
               <tr>
                 <th>No</th>
-                <th>Klasifikasi</th>
-                <th>Sub Klasifikasi</th>
+                <th>Kategori</th>
+                <th>Sub Kategori</th>
                 <th>Banyak Peminjam</th>
                 <th>Banyak Dicari</th>
                 <th>Stok</th>
                 <th>Judul Buku</th>
+                <th>Link buku</th>
                 <th>Kesimpulan</th>
               </tr>
               <?php if (count($result_c1) > 0) { ?>
@@ -125,7 +128,8 @@
                     <td><?= $value['pencarian'] ?></td>
                     <td><?= $value['stok_per_buku'] ?></td>
                     <td><?= $value['judul_buku'] ?></td>
-                    <td>Buku dengan kategori & subkategori tersebut adalah buku yang sangat diminati, karena berdasarkan total pencarian buku dan total peminjaman buku tersebut lebih banyak dibandingkan stok buku yang tersedia sehingga buku ini adalah salah satu rekomendasi buku yang akan di adakan di pengadaan !</td>
+                    <td><a href="https://www.gramedia.com/search?q=<?= $value['judul_buku'] ?>" target="_blank">https://www.gramedia.com/search?q=<?= $value['judul_buku'] ?></a></td>
+                    <td>Berdasarkan banyak peminjaman, banyak pencarian serta stok. Buku ini termasuk buku yang harus diadakan oleh pihak perpustakkaan!! </td>
                   </tr>
                 <?php } ?>
               <?php } else { ?>
@@ -143,7 +147,7 @@
             <table class="iteration table table-striped">
               <tr>
                 <th colspan="7">
-                  Hasil Cluster 2 (Diminati)
+                  Hasil Cluster 2 (Perlu diadakan)
                 </th>
               </tr>
               <tr>
@@ -183,7 +187,7 @@
             <table class="iteration table table-striped">
               <tr>
                 <th colspan="7">
-                  Hasil Cluster 3 (Tidak Diminati)
+                  Hasil Cluster 3 (Tidak Perlu diadakan)
                 </th>
               </tr>
               <tr>

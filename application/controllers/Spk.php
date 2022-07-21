@@ -43,8 +43,56 @@ class Spk extends CI_Controller
 
   public function generate($year)
   {
+    $jml_buku = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku")->num_rows();
+    $offset = $jml_buku / 2 - 1;
     // ambil centeroid
+    $c1_stok = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `stok` ASC LIMIT 1")->row_array();
+    $c2_stok = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `stok` DESC LIMIT 1 OFFSET $offset")->row_array();
+    $c3_stok = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `stok` DESC LIMIT 1")->row_array();
+
+    $c1_peminjam = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `peminjam` DESC LIMIT 1")->row_array();
+    $c2_peminjam = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `peminjam` ASC LIMIT 1 OFFSET $offset")->row_array();
+    $c3_peminjam = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `peminjam` ASC LIMIT 1")->row_array();
+
+    $c1_pencarian = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `pencarian` DESC LIMIT 1")->row_array();
+    $c2_pencarian = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `pencarian` ASC LIMIT 1 OFFSET $offset")->row_array();
+    $c3_pencarian = $this->db->query("SELECT tbl_buku.id_buku, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian FROM tbl_buku GROUP BY tbl_buku.id_buku ORDER BY `pencarian` ASC LIMIT 1")->row_array();
+
     $centeroid = $this->buku_m->get_book_spk_three_where_year($year)->result_array();
+
+    $centeroid = [
+      0 => [
+        'peminjam' => $c1_peminjam['peminjam'],
+        'stok' => $c1_stok['stok'],
+        'pencarian' => $c1_pencarian['pencarian']
+      ],
+      1 => [
+        'peminjam' => $c2_peminjam['peminjam'],
+        'stok' => $c2_stok['stok'],
+        'pencarian' => $c2_pencarian['pencarian']
+      ],
+      2 => [
+        'peminjam' => $c3_peminjam['peminjam'],
+        'stok' => $c3_stok['stok'],
+        'pencarian' => $c3_pencarian['pencarian']
+      ],
+    ];
+
+    // var_dump($c1_stok['stok']);
+    // var_dump($c2_stok['stok']);
+    // var_dump($c3_stok['stok']);
+
+    // var_dump($c1_peminjam['peminjam']);
+    // var_dump($c2_peminjam['peminjam']);
+    // var_dump($c3_peminjam['peminjam']);
+
+    // var_dump($c1_pencarian['pencarian']);
+    // var_dump($c2_pencarian['pencarian']);
+    // var_dump($c3_pencarian['pencarian']);
+    // echo '<br><br>';
+    // var_dump($centeroid);
+
+    // die();
 
     // ambil data-data spk
     $all_data = $this->buku_m->get_book_spk_where_year($year)->result_array();
@@ -144,7 +192,7 @@ class Spk extends CI_Controller
     $result_c3 = [];
 
     foreach ($list_all_data[$iteration - 2] as $item) {
-      $buku = $this->buku_m->get_one_result_cluster($item['id_subkategori'])->row_array();
+      $buku = $this->db->get_where('tbl_buku', ['id_buku' => $item['id_buku']])->row_array();
       $item['judul_buku'] = $buku['title'];
       $item['stok_per_buku'] = $buku['jml'];
       if ($item['label'] == 'c1') {

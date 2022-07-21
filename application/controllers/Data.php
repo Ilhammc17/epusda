@@ -57,10 +57,20 @@ class Data extends CI_Controller
 	public function insert_pencarian()
 	{
 		$data = $this->input->get();
-		$this->pencarian_m->create([
-			'subkategori_id' => $data['id_subkategori'],
-			'tgl_pencarian' => date('Y-m-d')
-		]);
+		$this->db->select('*');
+		$this->db->from('tbl_buku');
+		$this->db->like('title', $data['keyword'], 'both');
+		$buku = $this->db->get();
+		if($buku->num_rows() > 0){
+			foreach ($buku->result_array() as $key) {
+				$this->pencarian_m->create([
+					'subkategori_id' => $key['subkategori_id'],
+					'buku_id' => $key['id_buku'],
+					'tgl_pencarian' => date('Y-m-d')
+				]);
+			}
+		}
+		
 	}
 
 	public function data_buku()

@@ -23,7 +23,7 @@
                         <div class="col-md-12 text-center mb-5">
                             <form action="#" id="filter_form" method="GET">
 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Subkategori</label>
                                     <select class="form-control select2" required="required" name="subkategori" id="subkategori">
                                         <option disabled selected value> -- Pilih Subkategori -- </option>
@@ -31,7 +31,7 @@
                                             <option value="<?= $isi['id_subkategori']; ?>" <?= $subkategori_filter == $isi['id_subkategori'] ? 'selected' : ''  ?>><?= $isi['nama_subkategori'] ?></option>
                                         <?php } ?>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label>Filter Berdasarkan</label>
                                     <select class="form-control select2" required="required" name="filter" id="filter">
@@ -261,7 +261,8 @@
         $('#filter_form').submit(function(e) {
             e.preventDefault();
             let id_subkategori = $('#subkategori').val();
-            $.get('<?= base_url('data/insert_pencarian?id_subkategori=') ?>' + id_subkategori, function() {
+            let keyword = $('#keyword').val();
+            $.get('<?= base_url('data/insert_pencarian?id_subkategori=') ?>' + id_subkategori + '&keyword=' + keyword, function() {
                 let keyword = $('#keyword').val();
                 tabel.search(keyword).draw();
             });

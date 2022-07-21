@@ -5,7 +5,7 @@
       <i class="fa fa-plus" style="color:green"> </i>  <?= $title_web;?>
     </h1>
     <ol class="breadcrumb">
-			<li><a href="<?php echo base_url('dashboard');?>"><i class="fa fa-dashboard"></i>&nbsp; Dashboard</a></li>
+			<li><a href="<?php echo base_url('dashboard');?>"><i class="fa fa-dashboard"></i>&nbsp; Dashboard847284</a></li>
 			<li class="active"><i class="fa fa-plus"></i>&nbsp;  <?= $title_web;?></li>
     </ol>
   </section>

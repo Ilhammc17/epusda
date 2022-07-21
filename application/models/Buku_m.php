@@ -55,10 +55,10 @@ class Buku_m extends Base_m
 
   public function get_book_spk_where_year($year)
   {
-    return $this->db->query("SELECT tbl_subkategori.id_subkategori, tbl_kategori.nama_kategori, tbl_subkategori.nama_subkategori, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.subkategori_id = tbl_buku.subkategori_id AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian
+    return $this->db->query("SELECT tbl_buku.id_buku, tbl_kategori.nama_kategori, tbl_subkategori.nama_subkategori, tbl_buku.title, sum(tbl_buku.jml) as stok, IFNULL(sum((SELECT sum(tbl_pinjam.jml) FROM tbl_pinjam WHERE tbl_pinjam.buku_id = tbl_buku.buku_id AND YEAR(tbl_pinjam.tgl_pinjam) = $year)),0) as peminjam, (SELECT count(*) from tbl_pencarian WHERE tbl_pencarian.buku_id = tbl_buku.id_buku AND YEAR(tbl_pencarian.tgl_pencarian) = $year) as pencarian
     FROM tbl_buku
     JOIN tbl_kategori ON tbl_kategori.id_kategori = tbl_buku.id_kategori 
-    JOIN tbl_subkategori ON tbl_subkategori.id_subkategori  = tbl_buku.subkategori_id GROUP BY tbl_subkategori.id_subkategori;");
+    JOIN tbl_subkategori ON tbl_subkategori.id_subkategori  = tbl_buku.subkategori_id GROUP BY tbl_buku.id_buku;");
   }
 
   public function get_book_spk_where_from_year($year)
